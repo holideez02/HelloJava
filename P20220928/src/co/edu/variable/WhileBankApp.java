@@ -49,7 +49,7 @@ public class WhileBankApp {
 				System.out.println("계좌번호>>> ");
 				String accNo = scn.nextLine(); //계좌번호 입력받기
 				System.out.println("출금할 금액>>> ");
-				int money = scn.nextInt(); //출금할 돈
+				int money = scn.nextInt(); //출금할 돈!
 				
 				//계좌번호 존재 확인
 				for(int i=0; i<banks.length; i++) {
