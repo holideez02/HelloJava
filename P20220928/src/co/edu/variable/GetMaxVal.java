@@ -12,26 +12,26 @@ public class GetMaxVal {
 		// randomAry[5] = (int)(Math.random()*100) + 1; //크기는 5인데 6번째를 넣으니 컴파일 오류
 
 		//최대값 구하는 법
-//		int maxVal = 0; // 배열요소 중 최대값을 저장.
-//		for (int i = 0; i < 5; i++) { // i<5와 같음
-//			System.out.println(randomAry[i]);
-//			// maxVal 변수에 두 값을 비교해서 큰 값 담기.
-//			if (randomAry[i] > maxVal) {
-//				maxVal = randomAry[i];
-//			}
-//
-//		}
-		//최소값 구하는 법
-		int minVal = 100;
-		for (int j = 0; j < randomAry.length; j++) {
-			System.out.println(randomAry[j]);
-			if (randomAry[j] < minVal) {
-				minVal = randomAry[j];
+		int maxVal = 0; // 배열요소 중 최대값을 저장.
+		for (int i = 0; i < 5; i++) { // i<5와 같음
+			System.out.println(randomAry[i]);
+			// maxVal 변수에 두 값을 비교해서 큰 값 담기.
+			if (randomAry[i] > maxVal) {
+				maxVal = randomAry[i];
 			}
-		}
 
-//		System.out.println("생성된 배열의 임의의 값중 최대값 =>" + maxVal);
-		System.out.println("생성된 배열의 임의의 값중 최소값 =>" + minVal);
+		}
+		//최소값 구하는 법
+//		int minVal = 100;
+//		for (int j = 0; j < randomAry.length; j++) {
+//			System.out.println(randomAry[j]);
+//			if (randomAry[j] < minVal) {
+//				minVal = randomAry[j];
+//			}
+//		}
+
+		System.out.println("생성된 배열의 임의의 값중 최대값 =>" + maxVal);
+//		System.out.println("생성된 배열의 임의의 값중 최소값 =>" + minVal);
 
 	}
 }

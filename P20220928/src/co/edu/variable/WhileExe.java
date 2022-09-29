@@ -6,8 +6,8 @@ public class WhileExe {
 
 	public static void main(String[] args) {
 //		whileFnc();
-//		whileFnc2();
-		whileFnc3();
+		whileFnc2();
+//		whileFnc3();
 	}
 	
 	public static void whileFnc3() {

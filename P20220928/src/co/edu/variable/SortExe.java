@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class SortExe {
 	public static void main(String[] args) {
-		int[] numAry = { 34, 21, 12 ,9 }; //{12,21,34}로 바꾸기
+		int[] numAry = { 34, 21, 12 ,9, 15, 22 }; //{12,21,34}로 바꾸기
 		
 		// 반복적인 처리.
 //		numAry = {12, 21, 34} //작은 값 순으로 배열 위치 바꾸기(오름차순)

@@ -11,10 +11,10 @@ public class WhileBankApp {
 		Account[] banks = new Account[10]; //일단 뭐가 들어올지 모르니 10개 담을 수 있는 공간부터 생성.
 		
 		Scanner scn = new Scanner(System.in);
-		
 		while(true) {
 			System.out.println("0.계좌생성, 1.예금, 2:출금, 3:잔액, 4:종료");
 			int menu = scn.nextInt();scn.nextLine();
+			boolean isCheck =false;
 			
 			if(menu == 1) {
 				//예금기능. 계좌번호, 얼마 예금할건지?
@@ -23,12 +23,16 @@ public class WhileBankApp {
 				System.out.println("예금할 금액>>> ");
 				int money = scn.nextInt(); //예금할 돈
 				
-//				for(int i=0; i<banks.length; i++) {
-//					if(banks[i] != null && banks[i].accNo.equals(accNo)){
-//					} else {
-//						System.out.println("등록된 계좌번호 없음");
-//					}
-//				}  boolean 변수 선언해서 해보기
+				//계좌번호 존재 확인
+				for(int i=0; i<banks.length; i++) {
+					if(banks[i] != null && banks[i].accNo.equals(accNo)){
+						isCheck = true;
+						break;
+					} 
+				}
+				if(!isCheck) {
+					System.out.println("계좌번호가 없습니다..");
+				}
 				
 				for(int i=0; i<banks.length; i++) { //배열 돌면서 찾기
 					if(banks[i] != null && banks[i].accNo.equals(accNo)) { //비교할 수 있는 값이 없는데 null을 만나면 nullpoint어쩌고 오류. 그러니 null이 아닌경우도 조건으로 달아줘야 함!
@@ -47,6 +51,17 @@ public class WhileBankApp {
 				System.out.println("출금할 금액>>> ");
 				int money = scn.nextInt(); //출금할 돈
 				
+				//계좌번호 존재 확인
+				for(int i=0; i<banks.length; i++) {
+					if(banks[i] != null && banks[i].accNo.equals(accNo)){
+						isCheck = true;
+						break;
+					} 
+				}
+				if(!isCheck) {
+					System.out.println("계좌번호가 없습니다..");
+				}
+				
 				for(int i=0; i<banks.length; i++) { //배열 돌면서 찾기
 					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
 						if(banks[i].balance > money) {
@@ -60,6 +75,18 @@ public class WhileBankApp {
 			}else if(menu == 3) {
 				System.out.println("조회할 계좌번호 입력>>> ");
 				String accNo = scn.nextLine();
+				
+				//계좌번호 존재 확인
+				for(int i=0; i<banks.length; i++) {
+					if(banks[i] != null && banks[i].accNo.equals(accNo)){
+						isCheck = true;
+						break;
+					} 
+				}
+				if(!isCheck) {
+					System.out.println("계좌번호가 없습니다..");
+				}
+				
 				for(int i=0; i<banks.length; i++) {
 					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
 						System.out.println("잔액: " + banks[i].balance);

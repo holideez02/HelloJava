@@ -15,7 +15,7 @@ public class App {
 		내나이 = "28"; //문자열 28.
 		
 		int result = myAge + 30;
-		System.out.println(myAge + "값과 30을 더하면 " + result + "입니다ㅎㅎ.");
+		System.out.println(myAge + "값과 30을 더하면 " + result + "입니다.");
 		
 		//배열.
 		// 자바스크립트에서는 let numAry=[]; 가능하지만 자바에서는 조금 다르다
