@@ -25,7 +25,7 @@ public class WhileBankApp {
 				
 				//계좌번호 존재 확인
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)){
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)){
 						isCheck = true;
 						break;
 					} 
@@ -35,9 +35,9 @@ public class WhileBankApp {
 				}
 				
 				for(int i=0; i<banks.length; i++) { //배열 돌면서 찾기
-					if(banks[i] != null && banks[i].accNo.equals(accNo)) { //비교할 수 있는 값이 없는데 null을 만나면 nullpoint어쩌고 오류. 그러니 null이 아닌경우도 조건으로 달아줘야 함!
-						if(money+banks[i].balance <= 100000) {
-						banks[i].balance = banks[i].balance + money; //현재 가지고 있는 금액을 가지고와서 거기에 더해주기(누적)
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)) { //비교할 수 있는 값이 없는데 null을 만나면 nullpoint어쩌고 오류. 그러니 null이 아닌경우도 조건으로 달아줘야 함!
+						if(money+banks[i].getBalance() <= 100000) {
+						banks[i].setBalance(banks[i].getBalance() + money); //현재 가지고 있는 금액을 가지고와서 거기에 더해주기(누적)
 						} else {
 							System.out.println("10만원 이상은 안됩니다.");
 						}
@@ -53,7 +53,7 @@ public class WhileBankApp {
 				
 				//계좌번호 존재 확인
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)){
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)){
 						isCheck = true;
 						break;
 					} 
@@ -63,9 +63,9 @@ public class WhileBankApp {
 				}
 				
 				for(int i=0; i<banks.length; i++) { //배열 돌면서 찾기
-					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
-						if(banks[i].balance > money) {
-						banks[i].balance = banks[i].balance - money; //현재 가지고 있는 금액을 가지고와서 거기에 더해주기
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)) {
+						if(banks[i].getBalance() > money) {
+						banks[i].setBalance(banks[i].getBalance() - money); //현재 가지고 있는 금액을 가지고와서 거기에 더해주기
 						} else {
 							System.out.println("잔고 부족");
 						}
@@ -78,7 +78,7 @@ public class WhileBankApp {
 				
 				//계좌번호 존재 확인
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)){
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)){
 						isCheck = true;
 						break;
 					} 
@@ -88,8 +88,8 @@ public class WhileBankApp {
 				}
 				
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
-						System.out.println("잔액: " + banks[i].balance);
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)) {
+						System.out.println("잔액: " + banks[i].getBalance());
 					}
 				}
 			}else if(menu == 4) {
@@ -102,8 +102,8 @@ public class WhileBankApp {
 				String owner = scn.nextLine();
 				
 				Account acc = new Account(); //인스턴스 생성
-				acc.accNo = accNo;
-				acc.owner = owner;
+				acc.setAccNo(accNo);
+				acc.setOwner(owner);
 				//계좌번호 생성.
 				for(int i=0; i<banks.length; i++) { //배열을 빙글빙글 돌면서
 					if(banks[i] == null) { //이 배열이 null 비어진 위치에다가 넣을거야
