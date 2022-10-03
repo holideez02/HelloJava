@@ -2,17 +2,15 @@ package co.edu.friend;
 
 public class Friends {
 	private String name; //이름
-	private int number; //번호
-	private String school; //학교
+	private String number; //번호
 	private String memo; //메모
 	
 	public Friends() {}
 
-	public Friends(String name, int number, String school, String memo) {
+	public Friends(String name, String number, String memo) {
 		super();
-		this.name = name;
 		this.number = number;
-		this.school = school;
+		this.name = name;
 		this.memo = memo;
 	}
 
@@ -23,22 +21,14 @@ public class Friends {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
-
-	public void setNumber(int number) {
+	
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public String getSchool() {
-		return school;
-	}
-
-	public void setSchool(String school) {
-		this.school = school;
-	}
 
 	public String getMemo() {
 		return memo;
@@ -46,7 +36,14 @@ public class Friends {
 
 	public void setMemo(String memo) {
 		this.memo = memo;
-	};
+	}
+
+	@Override
+	public String toString() {
+		return "Friends [번호=" + number + ", 이름=" + name + ", 메모=" + memo + "]";
+	}
+
+	
 	
 	
 }
