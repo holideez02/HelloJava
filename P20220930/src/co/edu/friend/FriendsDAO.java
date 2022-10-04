@@ -66,9 +66,17 @@ public class FriendsDAO {
 						break;
 					case 2:
 						System.out.println("변경할 번호를 적어주세요.");
+						String cPhone = scn.nextLine();
+						myFriends[i].setNumber(cPhone);
+						System.out.println(myFriends[i].toString());
+						System.out.println("번호가 변경되었습니다.");
 						break;
 					case 3:
 						System.out.println("변경할 메모를 적어주세요.");
+						String cMemo = scn.nextLine();
+						myFriends[i].setNumber(cMemo);
+						System.out.println(myFriends[i].toString());
+						System.out.println("메모가 변경되었습니다.");
 						break;
 						default:
 						System.out.println("나갑니다.");
