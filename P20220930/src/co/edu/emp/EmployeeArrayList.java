@@ -18,13 +18,13 @@ public class EmployeeArrayList implements EmployeeService{
 	@Override
 	public void input() {
 		
-		//사번 입력 % 예외처리
+		//사번 입력 & 예외처리
 		int eId = readInt("사번 >> ");
 		
 		System.out.println("이름>>> "); //어차피 문자니까 안해줘도 된다
 		String name = scn.nextLine();
 		
-		//부서입력 % 예외처리(10,20,30 이외 부서는 부적절)
+		//부서입력 & 예외처리(10,20,30 이외 부서는 부적절)
 		int deptId = -1;
 		while (true) {
 			deptId = readInt("부서 >> "); //예외처리. 숫자값은 들어와도 원래부서값이 아니라면 예외처리도 발생해줘야지

@@ -22,16 +22,16 @@ public class GetMaxVal {
 
 		}
 		//최소값 구하는 법
-//		int minVal = 100;
-//		for (int j = 0; j < randomAry.length; j++) {
-//			System.out.println(randomAry[j]);
-//			if (randomAry[j] < minVal) {
-//				minVal = randomAry[j];
-//			}
-//		}
+		int minVal = 100;
+		for (int j = 0; j < randomAry.length; j++) {
+			System.out.println(randomAry[j]);
+			if (randomAry[j] < minVal) {
+				minVal = randomAry[j];
+			}
+		}
 
 		System.out.println("생성된 배열의 임의의 값중 최대값 =>" + maxVal);
-//		System.out.println("생성된 배열의 임의의 값중 최소값 =>" + minVal);
+		System.out.println("생성된 배열의 임의의 값중 최소값 =>" + minVal);
 
 	}
 }
