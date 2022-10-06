@@ -19,12 +19,11 @@ class Student { // extend가 따로 없어도 object를 상속받음. 그래서 
 		}
 	
 
-	@Override // extend의 equals를 오버라이드.
+	@Override // extends의 equals를 오버라이드.
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Student)) {
 			return false;
-		}
-			Student str = (Student) obj;
+		}Student str = (Student) obj;
 //		return super.equals(obj);
 			if (this.name.equals(str.name) && this.age == str.age)
 				return true;
@@ -57,7 +56,7 @@ public class ObjectExe {
 		System.out.println(s2.hashCode());
 		
 		//Set 컬렉션: 인터페이스 -> 구현클래스 통해서 인스턴스 생성가능.
-		Set<Integer> set = new HashSet<Integer>(); //set에는 정수만 담을 수 있음.
+		Set<Integer> set = new HashSet<Integer>(); //set에는 정수만 담을 수 있음. 데이터를 중복 저장할 수 없고 순서를 보장하지 않는다
 		set.add(new Integer(100));
 		set.add(new Integer(110));
 		set.add(new Integer(100));

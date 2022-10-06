@@ -32,8 +32,14 @@ public class FriendApp {
 				
 
 			} else if (menu == 2) { //리스트메뉴
-				Friend[] list = service.friendList();
 				// 친구의 정보를 출력하는데 getInfo()를 사용해서 출력. for사용.
+				Friend[] list = service.friendList();
+				Friend[] result = null;
+				for (int i = 0; i < list.length; i++) {
+					if (list[i] != null) {
+						System.out.println(list[i].getInfo());
+					}
+				} 
 
 			} else if (menu == 3) { //그냥 친구생성 메뉴
 				System.out.println("변경할 친구이름입력>> ");
