@@ -29,6 +29,7 @@ public class EmployeeArrayList3 implements EmployeeService {
 				System.out.println("숫자를 입력하세요.");
 			}
 		}
+		
 		System.out.println("이름 >>");
 		String name = "";
 		try {
