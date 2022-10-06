@@ -44,24 +44,26 @@ public class StringExe {
 					break;
 				System.out.println(str);
 				
-				str = str.replace(" ", "");
-				str = str.replace("-","");
-				
-				if (str.charAt(6) == '1' || str.charAt(6) == '3') {
-					System.out.println("남자 입니다.");
-				} else if(str.charAt(6) == '2' || str.charAt(6) == '4') {
-					System.out.println("여자 입니다.");
-				} 
+//				str = str.replace(" ", "");
+//				str = str.replace("-","");
+//				
+//				if (str.charAt(6) == '1' || str.charAt(6) == '3') {
+//					System.out.println("남자 입니다.");
+//				} else if(str.charAt(6) == '2' || str.charAt(6) == '4') {
+//					System.out.println("여자 입니다.");
+//				} 
 //					else if(){ //년도, 월, 일 정보가 잘못되면 잘못된번호라고 인식.
 //					System.out.println("잘못된 번호입니다.");
 //				}
 				
 				//교수님은..이렇게하셨다...
-//				if(str.replace("-", "").charAt(6) % 2 ==1) {
-//					System.out.println("남자입니다.");
-//				}else if(str.replace("-", "").charAt(6)%2 ==0) {
-//					System.out.println("여자입니다.");
-//				}
+				if(str.replace("-", "").charAt(6) % 2 ==1) {
+					System.out.println("남자입니다.");
+				}else if(str.replace("-", "").charAt(6)%2 ==0) {
+					System.out.println("여자입니다.");
+				}else if(str.charAt(2) == 0 || str.charAt(2) == 1) {
+					System.out.println("잘못된 형식의 월입니다.");
+				}
 				
 			}
 		} catch (FileNotFoundException e) {

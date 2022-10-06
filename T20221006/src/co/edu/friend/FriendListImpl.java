@@ -91,14 +91,7 @@ public class FriendListImpl implements FriendService {
 	@Override
 	public Friend[] friendList() {
 		// 전체 친구목록을 반환하도록 수정하세요(반환유형에 유의).
-		System.out.println("친구를 조회합니다.");
-		Friend[] result = null;
-		for (int i = 0; i < friendList.length; i++) {
-			if (friendList[i] != null) {
-				System.out.println(friendList[i].getInfo());
-			}
-		}
-		return result;
+		return friendList;
 	}
 
 	@Override
