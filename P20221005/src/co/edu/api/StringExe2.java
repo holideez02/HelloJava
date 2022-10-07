@@ -50,6 +50,20 @@ public class StringExe2 {
 
 		}
 		System.out.println(arr);
+		
+//		String[] msgAry = msg.split("");
+//		byte[] bytes = new byte[msg.length()];
+//		int i=0;
+//		for (String str: msgAry) {
+//			char chr = str.charAt(0);
+//			int chr2 = 0;
+//			
+//			if(chr>=97){
+//				chr2 = chr-32;
+//			}else if (chr<=92) {
+//				chr2 = chr +32;
+//			}
+//		}
 
 	}
 }
