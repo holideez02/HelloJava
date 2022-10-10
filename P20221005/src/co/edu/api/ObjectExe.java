@@ -23,7 +23,8 @@ class Student { // extend가 따로 없어도 object를 상속받음. 그래서 
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Student)) {
 			return false;
-		}Student str = (Student) obj;
+		}
+		Student str = (Student) obj;
 //		return super.equals(obj);
 			if (this.name.equals(str.name) && this.age == str.age)
 				return true;

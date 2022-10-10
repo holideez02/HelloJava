@@ -13,7 +13,7 @@ public class DaoMain {
 		service2.delete();
 		service2.search();
 		
-		DaoService dao = new EmpServiceImpl(); //구현클래스. 앞은 인터페이스. 구현클래스가 인터페이스를 구현하니까 넣을 수 도 있다.
+		DaoService dao = new EmpServiceImpl(); //앞은 인터페이스. 뒤는 구현클래스. 구현클래스가 인터페이스를 구현하니까 넣을 수 도 있다.
 		dao = new DeptServiceImpl(); // 구현클래스에 할당 가능.
 		dao.insert();
 		dao.delete();

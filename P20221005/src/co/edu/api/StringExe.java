@@ -61,8 +61,6 @@ public class StringExe {
 					System.out.println("남자입니다.");
 				}else if(str.replace("-", "").charAt(6)%2 ==0) {
 					System.out.println("여자입니다.");
-				}else if(str.charAt(2) == 0 || str.charAt(2) == 1) {
-					System.out.println("잘못된 형식의 월입니다.");
 				}
 				
 			}

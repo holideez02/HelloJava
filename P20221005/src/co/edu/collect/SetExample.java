@@ -61,7 +61,7 @@ public class SetExample {
 		Set<Integer> set = new HashSet<Integer>();
 		
 		//중복허용 하지 않는 hashSet
-		while (set.size() <7) {
+		while (set.size() < 7) {
 			set.add((int) (Math.random() * 45) + 1); //
 		}
 		for(int n: set) {

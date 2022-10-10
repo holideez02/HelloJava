@@ -12,5 +12,6 @@ public class ListExe {
 		int a = 5;
 		Integer b = 10; // int -> Integer로 박싱. 기본데이터 타입을 클래스타입으로 박싱해줌.
 		a = b; //b는 클래스인데, 기본데이터인 a에도 담을 수 있음. 이런걸 언박싱!
+		System.out.println(a);
 	}
 }

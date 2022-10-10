@@ -52,9 +52,4 @@ public class Friends {
 		return "Friends [이름=" + name + ", 단축번호=" + shortNo + ", 연락처=" + number + ", 메모=" + memo + "]";
 	}
 
-	
-
-	
-	
-	
 }

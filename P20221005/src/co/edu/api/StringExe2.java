@@ -22,7 +22,6 @@ public class StringExe2 {
 		try {
 			changeCapital("abcDEF");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -36,8 +35,7 @@ public class StringExe2 {
 		Scanner scn = new Scanner(System.in);
 		System.out.println("입력하세요.");
 		String input = scn.nextLine();
-		char[] arr;
-		arr = input.toCharArray(); // 문자열을 문자 배열로
+		char[] arr= input.toCharArray(); // 문자열을 문자 배열로
 
 		for (int i = 0; i < arr.length; i++) {
 			if (65 <= arr[i] && arr[i] <= 90) { // 대문자일때 값에 +32해서 소문자로 변환

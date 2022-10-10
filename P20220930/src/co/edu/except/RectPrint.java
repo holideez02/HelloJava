@@ -10,21 +10,21 @@ public class RectPrint {
 //			System.out.println();
 //		}
 //		
-//		for(int i=0; i<5; i++) {
-//			int cnt = i+1;
-//			System.out.printf("%3d", cnt);
-//			for(int j=0; j<4; j++) {
-//				System.out.printf("%3d", cnt+= 5);
-//			}System.out.println();
-//		}
-		
-		int cnt = 1;
 		for(int i=0; i<5; i++) {
-			for(int j=0; j<5; j++) {
-				System.out.printf("%3d", cnt = i+1 +j*5);
-			}
-				System.out.println();
-			
+			int cnt = i+1;
+			System.out.printf("%3d", cnt);
+			for(int j=0; j<4; j++) {
+				System.out.printf("%3d", cnt+= 5);
+			}System.out.println();
 		}
+		
+//		int cnt = 1;
+//		for(int i=0; i<5; i++) {
+//			for(int j=0; j<5; j++) {
+//				System.out.printf("%3d", cnt = i+1 +j*5);
+//			}
+//				System.out.println();
+//			
+//		}
 	}
 }

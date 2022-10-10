@@ -30,22 +30,21 @@ public class ExceptionTest1 {
 //			e.printStackTrace();
 //		}
 		
-		Scanner scn = new Scanner(System.in);
-		while(true) {
-			System.out.println("숫자입력 >>> ");
-		
-			try {
-				int menu = scn.nextInt(); //만약에 입력값이 숫자가 아니고 문자도 섞였다면? InputMismatchException발생
-				System.out.println("입력 값은 : " + menu);
-				break;
-			} catch(InputMismatchException e) {
-				System.out.println("숫자를 입력하세요!");
-				scn.nextLine(); // abc(Enter)
-			} finally {
-				System.out.println("반드시 실행할 코드! 잘된다!");
-				//db connection 사용하고 resource 반환.
-			}
-		}
+//		Scanner scn = new Scanner(System.in);
+//		while(true) {
+//			System.out.println("숫자입력 >>> ");
+//			try {
+//				int menu = scn.nextInt(); //만약에 입력값이 숫자가 아니고 문자도 섞였다면? InputMismatchException발생
+//				System.out.println("입력 값은 : " + menu);
+//				break;
+//			} catch(InputMismatchException e) {
+//				System.out.println("숫자를 입력하세요!");
+//				scn.nextLine(); // abc(Enter)
+//			} finally {
+//				System.out.println("반드시 실행할 코드! 잘된다!");
+//				//db connection 사용하고 resource 반환.
+//			}
+//		}
 		
 		try { //호출했으니 예외를 받아서 처리해야함.
 			exceptMethod();
@@ -57,10 +56,10 @@ public class ExceptionTest1 {
 	
 	public static void exceptMethod() throws ClassNotFoundException { //호출한 곳으로 예외 떠넘기기
 	//일반 예외: Exception 상속받아서 처리하는 예외클래스.
-//	try {
+	try {
 		Class.forName("java.lang.String");
-//	} catch (ClassNotFoundException e) {
-//		e.printStackTrace();
-//	}
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
 }
 }

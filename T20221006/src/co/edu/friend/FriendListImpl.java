@@ -109,7 +109,7 @@ public class FriendListImpl implements FriendService {
 	public void delFriend(String phoneNo) {
 		// 삭제할 연락처를 입력받아서 배열에서 찾아 삭제하세요.
 		for (int i = 0; i < friendList.length; i++) {
-			if (friendList[i] != null && friendList[i].getPhoneNumber().equals(phoneNo)) {
+			if (friendList[i].getPhoneNumber().equals(phoneNo)) {
 				friendList[i] = null;
 				break;
 			}
