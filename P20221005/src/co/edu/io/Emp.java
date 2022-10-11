@@ -3,7 +3,7 @@ package co.edu.io;
 import java.io.Serializable;
 
 public class Emp implements Serializable {
-	private static final long serialVersionUID = 6451210830835629502L;
+	private static final long serialVersionUID = -8613044036415127521L;
 // emp클래스를 스트림에 저장하고 불러옴 .serial 어쩌고는 아무 기능은 없지만 구현은 해줘야함
 
 	int id;
