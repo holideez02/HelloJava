@@ -29,9 +29,23 @@ public class BoardApp {
 				brdDao.insert(brd);
 				
 			}else if(menu == 2) { //수정
+				System.out.println("수정할 글 번호 입력>>");
+				int boardNum = Integer.parseInt(scn.nextLine());
+				System.out.println("수정할 내용 입력>>");
+				String boardContent = scn.nextLine();
+				int cnt = 0;
 				
+				Board brd = new Board(boardNum, boardContent, cnt);
+				brdDao.update(brd);
 			}else if(menu == 3) { //삭제
+				System.out.println("삭제할 글번호 입력>>");
+				int boardNum = Integer.parseInt(scn.nextLine());
 				
+				if(brdDao.delete(boardNum)) {
+					System.out.println("삭제되었습니다.");
+				} else {
+					System.out.println("글 번호가 존재하지 않습니다.");
+				}
 			}else if(menu == 4) { //목록
 				System.out.println("목록을 조회합니다>>");
 				List<Board> brds = brdDao.listSearch();

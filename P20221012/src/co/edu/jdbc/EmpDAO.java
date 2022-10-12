@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class EmpDAO {
 
 	public static void main(String[] args) {
-		update();
+		search();
 	}
 	
 	public static void update() { //수정.
@@ -22,7 +22,7 @@ public class EmpDAO {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 		
 			stmt = conn.createStatement();
-			int r = stmt.executeUpdate("update empl set first_name = 'messi' where employee_id = 500"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
+			int r = stmt.executeUpdate("update employees set first_name = 'messi' where employee_id = 500"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
 			System.out.println(r + "건 변경됨.");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class EmpDAO {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 		
 			stmt = conn.createStatement();
-			int r = stmt.executeUpdate("delete from empl where employee_id = 700"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
+			int r = stmt.executeUpdate("delete from employees where employee_id = 700"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
 			System.out.println(r + "건이 삭제됨.");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +74,7 @@ public class EmpDAO {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr"); // url, 사용자계정, pw
 
 			stmt = conn.createStatement(); // 실행쿼리문을 전송, 결과받아오도록 하는 객체
-			rs = stmt.executeQuery("select * from empl order by employee_id"); // 실행된 결과를 set컬렉션에 담아줌. 조회할때! select경우!
+			rs = stmt.executeQuery("select * from employees order by employee_id"); // 실행된 결과를 set컬렉션에 담아줌. 조회할때! select경우!
 			// Set 컬렉션
 			while (rs.next()) {
 				System.out.println("사원번호: " + rs.getInt("employee_id"));

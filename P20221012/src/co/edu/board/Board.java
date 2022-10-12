@@ -24,6 +24,11 @@ public class Board {
 		this.boardWriter = boardWriter;
 		this.date = date;
 	}
+	public Board(int boardNum, String boardContent, int cnt) {
+		this.boardNum = boardNum;
+		this.boardContent = boardContent;
+		this.cnt = cnt;
+	}
 
 	public int getBoardNum() {
 		return boardNum;
@@ -74,8 +79,8 @@ public class Board {
 	}
 	@Override
 	public String toString() {
-		return "Board [boardNum=" + boardNum + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardWriter=" + boardWriter + ", date=" + date + ", cnt=" + cnt + "]";
+		return "게시판 [글번호: " + boardNum + ", 제목: " + boardTitle + ", 내용: " + boardContent
+				+ ", 작성자: " + boardWriter + ", 작성일: " + date + ", 조회목록=" + cnt + "]";
 	}
 	
 }
