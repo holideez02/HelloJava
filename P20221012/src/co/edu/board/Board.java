@@ -1,12 +1,15 @@
 package co.edu.board;
 
 public class Board {
-	int boardNum;
-	String boardTitle;
-	String boardContent;
-	String boardWriter;
-	String date;
-	int cnt;
+	private int boardNum;
+	private String boardTitle;
+	private String boardContent;
+	private String boardWriter;
+	private String date;
+	private int cnt;
+	private String id;
+	private String pswd;
+	private String reply;
 	
 	public Board() {};
 	public Board(int boardNum, String boardTitle, String boardContent, String boardWriter, String date, int cnt) {
@@ -24,12 +27,18 @@ public class Board {
 		this.boardWriter = boardWriter;
 		this.date = date;
 	}
-	public Board(int boardNum, String boardContent, int cnt) {
+	public Board(int boardNum, String boardTitle, String boardContent, String boardWriter, int cnt) {
 		this.boardNum = boardNum;
+		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
+		this.boardWriter = boardWriter;
 		this.cnt = cnt;
 	}
-
+	public Board(int boardNum, String boardContent) {
+		this.boardNum = boardNum;
+		this.boardContent = boardContent;
+	}
+	
 	public int getBoardNum() {
 		return boardNum;
 	}
@@ -78,9 +87,13 @@ public class Board {
 		this.cnt = cnt;
 	}
 	@Override
-	public String toString() {
-		return "게시판 [글번호: " + boardNum + ", 제목: " + boardTitle + ", 내용: " + boardContent
+	public String toString() { //글 상세
+		return "[글번호: " + boardNum + ", 제목: " + boardTitle + ", 내용: " + boardContent
 				+ ", 작성자: " + boardWriter + ", 작성일: " + date + ", 조회목록=" + cnt + "]";
+	}
+	
+	public String showInfo() { //글 목록 보기
+		return "글번호: " + boardNum + " 제목: " + boardTitle + " 작성자: " + boardWriter + " 작성일: " + date ;
 	}
 	
 }
