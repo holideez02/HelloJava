@@ -8,7 +8,7 @@ public class EmployeeDAO extends DAO {
 
 	// 삭제
 	public boolean delete(int empId) {
-		String sql = "delete from employees where employee_id = ?";
+		String sql = "delete from empl where employee_id = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -28,7 +28,7 @@ public class EmployeeDAO extends DAO {
 
 	// 업데이트
 	public void update(Employee emp) {
-		String sql = "update employees "//
+		String sql = "update empl "//
 				+ "set Last_name = ?,  "//
 				+ "	   email = ?,  "//
 				+ "    hire_date = ?, "//
@@ -55,7 +55,7 @@ public class EmployeeDAO extends DAO {
 
 	// 입력
 	public void insert(Employee emp) {
-		String sql = "insert into employees (employee_id, last_name, email, hire_date, job_id)\r\n" + "values("
+		String sql = "insert into empl (employee_id, last_name, email, hire_date, job_id)\r\n" + "values("
 				+ emp.getEmployeeId() + ", '" + emp.getLastName() + "', '" + emp.getEmail() + "', '" + emp.getHireDate()
 				+ "', '" + emp.getJobId() + "')";
 		System.out.println(sql);
@@ -78,7 +78,7 @@ public class EmployeeDAO extends DAO {
 		List<Employee> list = new ArrayList<>(); // 반환하기 위한 값.
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from employees order by employee_id"); // 조회
+			rs = stmt.executeQuery("select * from empl order by employee_id"); // 조회
 			while (rs.next()) {
 				list.add(new Employee(rs.getInt("employee_id") // 칼럼값을 생성자의 매개값으로.
 						, rs.getString("last_name"), rs.getString("email"), rs.getString("hire_date"),
@@ -95,7 +95,7 @@ public class EmployeeDAO extends DAO {
 	public Employee getEmp(int empId) {
 		// 딱 한건만 반환.(리턴)
 		conn = getConnect();
-		String sql = "select * from employees where employee_id = ? order by employee_id";
+		String sql = "select * from empl where employee_id = ? order by employee_id";
 		Employee emp = null;
 		try {
 			psmt = conn.prepareStatement(sql);

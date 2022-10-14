@@ -22,7 +22,7 @@ public class EmpDAO {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 		
 			stmt = conn.createStatement();
-			int r = stmt.executeUpdate("update employees set first_name = 'messi' where employee_id = 500"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
+			int r = stmt.executeUpdate("update empl set first_name = 'messi' where employee_id = 500"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
 			System.out.println(r + "건 변경됨.");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class EmpDAO {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 		
 			stmt = conn.createStatement();
-			int r = stmt.executeUpdate("delete from employees where employee_id = 700"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
+			int r = stmt.executeUpdate("delete from empl where employee_id = 700"); //insert, delete, update구문을 쓰고 싶으면 executeUpdate구문 작성
 			System.out.println(r + "건이 삭제됨.");
 		} catch (Exception e) {
 			e.printStackTrace();

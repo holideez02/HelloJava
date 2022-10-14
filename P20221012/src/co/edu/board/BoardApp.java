@@ -99,7 +99,7 @@ public class BoardApp {
 				System.out.println("목록을 조회합니다>>");
 				List<Board> brds = brdDao.listSearch();
 				
-				while()
+//				while() 
 				for (int i = 0; i < brds.size(); i++) {
 					if (i < 3) {
 						System.out.println(brds.get(i).showInfo());
