@@ -11,8 +11,10 @@ public class BoardDAO extends DAO {
 	// 생성
 	public void insert(Board brd) {
 		String sql = "insert into board (board_num, board_title, board_content, board_writer)\r\n"
-				+ "values(" + brd.getBoardNum() + ", '" + brd.getBoardTitle() + "', '" + brd.getBoardContent() + "', '"
-				+ brd.getBoardWriter() +  "')";
+				+ "values(" + brd.getBoardNum() 
+				+ ", '" + brd.getBoardTitle() 
+				+ "', '" + brd.getBoardContent() 
+				+ "', '" + brd.getBoardWriter() +  "')";
 		System.out.println(sql);
 		conn = getConnect();
 		try {
