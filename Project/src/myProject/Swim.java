@@ -4,6 +4,7 @@ public class Swim {
 	private int userNo; // 회원번호
 	private String name; // 회원이름
 	private String sex; // 성별
+	private String birth; //생년월일
 	private String phoneNum; // 폰번호
 	private String email; // 메일
 	private String address; // 주소
@@ -13,12 +14,14 @@ public class Swim {
 	private String id; // 아이디
 	private String pswd; // 패스워드
 
-	public Swim(int userNo, String name, String sex, String phoneNum, String email, String address, String course,
+	public Swim() {};
+	public Swim(int userNo, String name, String sex, String birth, String phoneNum, String email, String address, String course,
 			int money, String date) {
 		super();
 		this.userNo = userNo;
 		this.name = name;
 		this.sex = sex;
+		this.birth = birth;
 		this.phoneNum = phoneNum;
 		this.email = email;
 		this.address = address;
@@ -28,11 +31,12 @@ public class Swim {
 	}
 
 	
-	public Swim(int userNo, String name, String sex, String phoneNum, String course) {
+	public Swim(int userNo, String name, String sex, String birth, String phoneNum, String course) {
 		super();
 		this.userNo = userNo;
 		this.name = name;
 		this.sex = sex;
+		this.birth = birth;
 		this.phoneNum = phoneNum;
 		this.course = course;
 	}
@@ -60,6 +64,14 @@ public class Swim {
 
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 
 	public String getPhoneNum() {
@@ -112,7 +124,7 @@ public class Swim {
 
 	@Override
 	public String toString() { // 상세조회
-		return "회원번호 : " + userNo + ", 이름: " + name + ", 성별: " + sex + ", 연락처: " + phoneNum + ", 이메일: " + email
+		return "회원번호 : " + userNo + ", 이름: " + name + ", 성별: " + sex + ", 생년월일: " + birth + ", 연락처: " + phoneNum + ", 이메일: " + email
 				+ ", 주소: " + address + ", 강좌명: " + course + ", 이용료: " + money + ", 수강등록일: " + date;
 	}
 
