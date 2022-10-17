@@ -9,8 +9,8 @@ public class Teacher {
 	private String phone; //강사 연락처
 	private String licence; // 자격증
 	
-	public Teacher() {};
-	public Teacher(int tNo, String name, String id, String course, String hireDate, String phone) {
+	public Teacher() {}; 
+	public Teacher(int tNo, String name, String id, String course, String hireDate, String phone, String licence) {
 		super();
 		this.tNo = tNo;
 		this.name = name;
@@ -18,6 +18,14 @@ public class Teacher {
 		this.course = course;
 		this.hireDate = hireDate;
 		this.phone = phone;
+		this.licence = licence;
+	}
+	public Teacher(int tNo, String name, String id, String course) {
+		super();
+		this.tNo = tNo;
+		this.name = name;
+		this.id = id;
+		this.course = course;
 	}
 	
 	public int gettNo() {
@@ -64,13 +72,13 @@ public class Teacher {
 		this.licence = licence;
 	}
 	@Override
-	public String toString() { //강사 목록조회
-		return "강사번호: " + tNo + ", 강사이름: " + name + ", 직책: " + id  + ", 진행중인 강좌: " + course;
+	public String toString() { //강사 상세조회
+		return "강사번호: " + tNo + ", 강사이름: " + name + ", 직책: " + id + ", 연락처: " + phone + ", 진행중인 강좌: " + course + ", 입사일:"
+		+ hireDate + ", 자격증: " +licence; 
 	}
 	
-	public String showInfo() { // 강사 상세조회
-		return "강사번호: " + tNo + ", 강사이름: " + name + ", 직책: " + id + ", 연락처: " + phone + ", 진행중인 강좌: " + course + ", 입사일:"
-				+ hireDate + ", 자격증: " +licence;
+	public String showInfo() { // 강사 목록조회
+		return "강사번호: " + tNo + ", 강사이름: " + name + ", 직책: " + id  + ", 진행중인 강좌: " + course;
 	}
 	
 }

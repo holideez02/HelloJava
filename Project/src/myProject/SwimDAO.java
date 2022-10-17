@@ -41,7 +41,6 @@ public class SwimDAO extends DAO {
 				+ "', '" + swim.getPhoneNum() + "', '" + swim.getEmail() 
 				+ "', '" + swim.getAddress() + "', '"+ swim.getCourse() 
 				+ "', " + swim.getMoney() + ", sysdate)";
-		System.out.println(sql);
 		try {
 			stmt = conn.createStatement();
 			int r = stmt.executeUpdate(sql);
@@ -175,7 +174,7 @@ public class SwimDAO extends DAO {
 				+ " values(teacher_seq.nextval, '" + t.getName() 
 				+ "', '" + t.getId() + "', '" + t.getCourse()
 				+ "', '" + t.getHireDate() + "', '" + t.getPhone() 
-				+"')";
+				+ "', '" + t.getLicence() +"')";
 		try {
 			stmt = conn.createStatement();
 			int r = stmt.executeUpdate(sql);
@@ -195,7 +194,7 @@ public class SwimDAO extends DAO {
 			rs = stmt.executeQuery("select * from teacher order by teacher_seq");
 			while (rs.next()) {
 				list.add(new Teacher(rs.getInt("teacher_seq"), rs.getString("t_name"), rs.getString("t_id"),
-						rs.getString("t_class"), rs.getString("hire_date"), rs.getString("t_phone")));
+						rs.getString("t_class")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -215,24 +214,22 @@ public class SwimDAO extends DAO {
 
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				t = new Teacher(rs.getInt("user_seq"), rs.getString("user_name"), rs.getString("user_sex"),
-						rs.getString("user_birth"), rs.getString("user_phone"), rs.getString("user_email"),
-						rs.getString("user_address"), rs.getString("user_course"), rs.getInt("user_money"),
-						rs.getString("creation_date"));
+				t = new Teacher(rs.getInt("teacher_seq"), rs.getString("t_name"), rs.getString("t_id"),
+						rs.getString("t_class"), rs.getString("hire_date"), rs.getString("t_phone"),
+						rs.getString("licence"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
-		return Teacher;
-
+		return t;
 	}
 	//강사 수정
 	public void tUpdate(Teacher t) {
 		String sql = " update teacher " + " set t_name = ?, " + " t_id = ?, " 
 				+ " t_class = ?, "+ " hire_date = ?, " 
-				+ " t_phone = ?, " + " where teacher_seq = ?";
+				+ " t_phone = ?, " + " licence =? " + " where teacher_seq = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -241,7 +238,8 @@ public class SwimDAO extends DAO {
 			psmt.setString(3, t.getCourse());
 			psmt.setString(4, t.getHireDate());
 			psmt.setString(5, t.getPhone());
-			psmt.setInt(6, t.gettNo());
+			psmt.setString(6, t.getLicence());
+			psmt.setInt(7, t.gettNo());
 
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 변경되었습니다.");
