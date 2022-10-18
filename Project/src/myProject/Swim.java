@@ -11,12 +11,13 @@ public class Swim {
 	private String course; // 강좌
 	private int money; // 수강료
 	private String date; // 등록일자
+	private String tName; //등록한 강좌의 강사이름
 	private String id; // 아이디
 	private String pswd; // 패스워드
 
 	public Swim() {};
 	public Swim(int userNo, String name, String sex, String birth, String phoneNum, String email, String address, String course,
-			int money, String date) {
+			int money, String date, String tName) {
 		super();
 		this.userNo = userNo;
 		this.name = name;
@@ -28,6 +29,7 @@ public class Swim {
 		this.course = course;
 		this.money = money;
 		this.date = date;
+		this.tName = tName;
 	}
 
 	
@@ -122,10 +124,16 @@ public class Swim {
 		this.date = date;
 	}
 
+	public String gettName() {
+		return tName;
+	}
+	public void settName(String tName) {
+		this.tName = tName;
+	}
 	@Override
 	public String toString() { // 상세조회
 		return "회원번호 : " + userNo + ", 이름: " + name + ", 성별: " + sex + ", 생년월일: " + birth + ", 연락처: " + phoneNum + ", 이메일: " + email
-				+ ", 주소: " + address + ", 강좌명: " + course + ", 이용료: " + money + ", 수강등록일: " + date;
+				+ ", 주소: " + address + ", 강좌명: " + course + ", 이용료: " + money + ", 수강등록일: " + date + ", 강사명: " + tName;
 	}
 
 	public String showInfo() { // 목록 조회

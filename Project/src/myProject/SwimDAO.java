@@ -35,12 +35,12 @@ public class SwimDAO extends DAO {
 		conn = getConnect();
 		String sql = "insert into swim (user_seq, user_name, user_sex, "
 				+ "user_birth, user_phone, user_email, user_address, " 
-				+ "user_course, user_money, creation_date)\r\n"
+				+ "user_course, user_money, creation_date, user_teacher)\r\n"
 				+ " values(user_seq.nextval, '" + swim.getName() 
 				+ "', '" + swim.getSex() + "', '" + swim.getBirth()
 				+ "', '" + swim.getPhoneNum() + "', '" + swim.getEmail() 
 				+ "', '" + swim.getAddress() + "', '"+ swim.getCourse() 
-				+ "', " + swim.getMoney() + ", sysdate)";
+				+ "', " + swim.getMoney() + ", sysdate, '" + swim.gettName() +"' )";
 		try {
 			stmt = conn.createStatement();
 			int r = stmt.executeUpdate(sql);
@@ -85,7 +85,7 @@ public class SwimDAO extends DAO {
 				swim = new Swim(rs.getInt("user_seq"), rs.getString("user_name"), rs.getString("user_sex"),
 						rs.getString("user_birth"), rs.getString("user_phone"), rs.getString("user_email"),
 						rs.getString("user_address"), rs.getString("user_course"), rs.getInt("user_money"),
-						rs.getString("creation_date"));
+						rs.getString("creation_date"), rs.getString("user_teacher"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,7 +96,7 @@ public class SwimDAO extends DAO {
 
 	}
 	// 강좌별 상세조회
-	public List<Swim> CourseSearch(String course) {
+	public List<Swim> courseSearch(String course) {
 		conn = getConnect();
 		String sql = "select * from swim where user_course = ?";
 		List<Swim> list = new ArrayList<>();
@@ -109,7 +109,7 @@ public class SwimDAO extends DAO {
 				list.add(new Swim(rs.getInt("user_seq"), rs.getString("user_name"), rs.getString("user_sex"),
 						rs.getString("user_birth"), rs.getString("user_phone"), rs.getString("user_email"),
 						rs.getString("user_address"), rs.getString("user_course"), rs.getInt("user_money"),
-						rs.getString("creation_date") + "\n"));
+						rs.getString("creation_date"), rs.getString("user_teacher")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -267,5 +267,9 @@ public class SwimDAO extends DAO {
 		}
 		return false;
 	}
+	
+//	public static String escEntered(String prompt) {
+//		System.out.println(prompt);
+//	}
 
 }
