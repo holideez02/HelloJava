@@ -45,17 +45,21 @@ public class SwimMain {
 				String phoneNum = Utils.readStr("회원 연락처 > ");
 				String email = Utils.readStr("회원 이메일 > ");
 				String address = Utils.readStr("회원 주소 > ");
-				if (name.equals("quit") || sex.equals("quit") || birth.equals("quit") || phoneNum.equals("quit")
-						|| email.equals("quit") || address.equals("quit")) {
-					continue;
+				String course = Utils.readStr("등록하는 강좌 > [초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반] ");
+				if (name.equals("quit") || sex.equals("quit") || birth.equals("quit") || phoneNum.equals("quit") // 입력값
+																													// 중
+																													// quit가
+																													// 있다면
+						|| email.equals("quit") || address.equals("quit") || course.equals("quit")) {
+					continue; // 다시 메인메뉴로 갑니다
 				}
 				if (name.equals("") || sex.equals("") || birth.equals("") || phoneNum.equals("") || email.equals("")
-						|| address.equals("")) {
+						|| address.equals("") || course.equals("")) { // 입력값 중 빈칸이 있다면
 					System.out.println("등록되지 않은 값이 있습니다.");
 					continue;
-				} ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				System.out.printf("등록하는 강좌 > [초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반] ");
-				String course = scn.nextLine();
+				}
+//				System.out.printf("등록하는 강좌 > [초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반] ");
+
 				int money = 0; // 강좌 등록시 수강료 자동 지정
 				if (course.equals("초급반") || course.equals("중급반") || course.equals("상급반")) {
 					money = 50000;
@@ -110,74 +114,74 @@ public class SwimMain {
 				int userNo = Integer.parseInt(scn.nextLine());
 				Swim s = swimDao.search(userNo);
 
-				if (s != null) { //조회할 회원번호가 있다면 
+				if (s != null) { // 조회할 회원번호가 있다면
 					if (userNo == s.getUserNo()) {
-
 						System.out.println(s);
 						System.out.println("** 정보를 수정하시려면 1, 메인메뉴로 돌아가려면 아무번호나 입력하세요. ** ");
 						int choice = Integer.parseInt(scn.nextLine());
 
 						if (choice == 1) {// 수정 메뉴로 이동
 							System.out.println("< 회원 수정 메뉴로 이동합니다. >");
-							try {
-								String name = Utils.readStr("회원 이름 > ");
-								String sex = Utils.readStr("회원 성별 > ");
-								String birth = Utils.readStr("회원 생년월일 > ");
-								String phoneNum = Utils.readStr("회원 연락처 > ");
-								String email = Utils.readStr("회원 이메일 > ");
-								String address = Utils.readStr("회원 주소 > ");
-								if (name.equals("quit") || sex.equals("quit") || birth.equals("quit")
-										|| phoneNum.equals("quit") || email.equals("quit") || address.equals("quit")) {
-									continue;
-								}
-								System.out.printf("수정할 강좌 > [ 초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반 ] ");
-								String course = scn.nextLine();
-								int money = 0;
-								if (course.equals("초급반") || course.equals("중급반") || course.equals("상급반")) {
-									money = 50000;
-								} else if (course.equals("고급반") || course.equals("교정반")) {
-									money = 60000;
-								} else if (course.equals("연수반")) {
-									money = 65000;
-								}
-
-								String tName = null; // 강좌 등록 시 강사이름 자동지정
-								if (course.equals("초급반")) {
-									tName = "이상현";
-								} else if (course.equals("중급반")) {
-									tName = "공경민";
-								} else if (course.equals("상급반")) {
-									tName = "강미지";
-								} else if (course.equals("고급반")) {
-									tName = "이영우";
-								} else if (course.equals("교정반")) {
-									tName = "조기한";
-								} else if (course.equals("연수반")) {
-									tName = "안혜진";
-								}
-
-								System.out.println("일반회원이면 1, 할인회원이면 2를 입력하세요.");
-								int pay = Integer.parseInt(scn.nextLine());
-								if (pay == 1) { // 일반 회원이라면 수강료 유지
-								} else if (pay == 2) { // 할인 회원이라면 10퍼센트 할인
-									money = (int) (money - (money * 0.1));
-								}
-
-								System.out.printf("수정할 수강등록일 > ");
-								String date = scn.nextLine();
-
-								Swim modiUser = new Swim(userNo, name, sex, birth, phoneNum, email, address, course,
-										money, date, tName);
-								swimDao.update(modiUser);
-								System.out.println(userNo + "번 회원정보 수정 완료.");
-							} catch (NumberFormatException n) {
-								System.out.println("입력받은 값이 없어 돌아갑니다.");
+							String name = Utils.readStr("회원 이름 > ");
+							String sex = Utils.readStr("회원 성별 > ");
+							String birth = Utils.readStr("회원 생년월일 > ");
+							String phoneNum = Utils.readStr("회원 연락처 > ");
+							String email = Utils.readStr("회원 이메일 > ");
+							String address = Utils.readStr("회원 주소 > ");
+							String course = Utils.readStr("수정할 강좌 [ 초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반 ] > ");
+							if (name.equals("quit") || sex.equals("quit") || birth.equals("quit")
+									|| phoneNum.equals("quit") || email.equals("quit") || address.equals("quit")
+									|| course.equals("quit")) {
+								continue;
 							}
+							if (name.equals("") || sex.equals("") || birth.equals("") || phoneNum.equals("")
+									|| email.equals("") || address.equals("") || course.equals("")) { // 입력값 중 빈칸이 있다면
+								System.out.println("등록되지 않은 값이 있습니다.");
+								continue;
+							}
+							int money = 0;
+							if (course.equals("초급반") || course.equals("중급반") || course.equals("상급반")) {
+								money = 50000;
+							} else if (course.equals("고급반") || course.equals("교정반")) {
+								money = 60000;
+							} else if (course.equals("연수반")) {
+								money = 65000;
+							}
+
+							String tName = null; // 강좌 등록 시 강사이름 자동지정
+							if (course.equals("초급반")) {
+								tName = "이상현";
+							} else if (course.equals("중급반")) {
+								tName = "공경민";
+							} else if (course.equals("상급반")) {
+								tName = "강미지";
+							} else if (course.equals("고급반")) {
+								tName = "이영우";
+							} else if (course.equals("교정반")) {
+								tName = "조기한";
+							} else if (course.equals("연수반")) {
+								tName = "안혜진";
+							}
+
+							System.out.println("일반회원이면 1, 할인회원이면 2를 입력하세요.");
+							int pay = Integer.parseInt(scn.nextLine());
+							if (pay == 1) { // 일반 회원이라면 수강료 유지
+							} else if (pay == 2) { // 할인 회원이라면 10퍼센트 할인
+								money = (int) (money - (money * 0.1));
+							}
+
+							System.out.printf("수정할 수강등록일 > ");
+							String date = scn.nextLine();
+
+							Swim modiUser = new Swim(userNo, name, sex, birth, phoneNum, email, address, course, money,
+									date, tName);
+							swimDao.update(modiUser);
+							System.out.println(userNo + "번 회원정보 수정 완료.");
 						} else { // 수정을 원하지 않는다면 메인메뉴로 다시 이동
 							continue;
 						}
 					}
-				}else {
+				} else { //조회할 번호가 없다면
 					System.out.println("조회할 번호가 없습니다.");
 				}
 			}
@@ -261,6 +265,11 @@ public class SwimMain {
 											|| licence.equals("quit")) {
 										continue;
 									}
+									if (tName.equals("") || tId.equals("") || tPhone.equals("") || tCourse.equals("")
+											|| hireDate.equals("") || licence.equals("")) { // 입력값 중 빈칸이 있다면
+										System.out.println("등록되지 않은 값이 있습니다.");
+										continue;
+									}
 									Teacher modiTeach = new Teacher(tNo, tName, tId, tCourse, hireDate, tPhone,
 											licence);
 									swimDao.tUpdate(modiTeach);
@@ -284,6 +293,11 @@ public class SwimMain {
 
 						if (tName.equals("quit") || tId.equals("quit") || tPhone.equals("quit")
 								|| tCourse.equals("quit") || hireDate.equals("quit") || licence.equals("quit")) {
+							continue;
+						}
+						if (tName.equals("") || tId.equals("") || tPhone.equals("") || tCourse.equals("")
+								|| hireDate.equals("") || licence.equals("")) { // 입력값 중 빈칸이 있다면
+							System.out.println("등록되지 않은 값이 있습니다.");
 							continue;
 						}
 						Teacher t = new Teacher(0, tName, tId, tCourse, hireDate, tPhone, licence);

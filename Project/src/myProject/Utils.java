@@ -9,9 +9,9 @@ public class Utils {
 
 		System.out.printf(prompt);
 		String inputVal = scn.nextLine();
-		if (inputVal.indexOf("quit") != -1) {
+		if (inputVal.indexOf("quit") != -1) { //quit값을 입력받는다면
 			return "quit";
 		}
-		return inputVal;
+		return inputVal; //quit가 아니라면 입력값 그대로 출력
 	}
 }
