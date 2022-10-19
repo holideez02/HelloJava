@@ -9,6 +9,7 @@ public class SwimMain {
 	public static void main(String[] args) throws SQLException {
 		SwimDAO swimDao = new SwimDAO();
 		Scanner scn = new Scanner(System.in);
+		UserManage um = UserManage.getInstance();
 
 		boolean checked = false;
 		String userId1 = null;
@@ -24,7 +25,7 @@ public class SwimMain {
 				System.out.println("* 관리자 " + userId + "님 환영합니다! *");
 				break;
 			} else {
-				System.out.println("로그인 실패. 다시 입력하세요");
+				System.out.println(userId + "는 관리자 계정이 아니므로 접근 불가합니다.");
 				continue;
 			}
 		}
@@ -46,10 +47,8 @@ public class SwimMain {
 				String email = Utils.readStr("회원 이메일 > ");
 				String address = Utils.readStr("회원 주소 > ");
 				String course = Utils.readStr("등록하는 강좌 > [초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반] ");
-				if (name.equals("quit") || sex.equals("quit") || birth.equals("quit") || phoneNum.equals("quit") // 입력값
-																													// 중
-																													// quit가
-																													// 있다면
+				String tName = swimDao.setTea(course); //강좌 등록시 강사 지정
+				if (name.equals("quit") || sex.equals("quit") || birth.equals("quit") || phoneNum.equals("quit") // 입력값 중 quit가 있다면
 						|| email.equals("quit") || address.equals("quit") || course.equals("quit")) {
 					continue; // 다시 메인메뉴로 갑니다
 				}
@@ -58,7 +57,6 @@ public class SwimMain {
 					System.out.println("등록되지 않은 값이 있습니다.");
 					continue;
 				}
-//				System.out.printf("등록하는 강좌 > [초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반] ");
 
 				int money = 0; // 강좌 등록시 수강료 자동 지정
 				if (course.equals("초급반") || course.equals("중급반") || course.equals("상급반")) {
@@ -67,21 +65,6 @@ public class SwimMain {
 					money = 60000;
 				} else if (course.equals("연수반")) {
 					money = 65000;
-				}
-
-				String tName = null; // 강좌 등록 시 강사이름 자동지정
-				if (course.equals("초급반")) {
-					tName = "이상현";
-				} else if (course.equals("중급반")) {
-					tName = "공경민";
-				} else if (course.equals("상급반")) {
-					tName = "강미지";
-				} else if (course.equals("고급반")) {
-					tName = "이영우";
-				} else if (course.equals("교정반")) {
-					tName = "조기한";
-				} else if (course.equals("연수반")) {
-					tName = "안혜진";
 				}
 
 				System.out.println("일반회원이면 1, 할인회원이면 2를 입력하세요.");
@@ -93,18 +76,25 @@ public class SwimMain {
 				Swim user = new Swim(0, name, sex, birth, phoneNum, email, address, course, money, null, tName);
 				swimDao.insert(user);
 				System.out.println("신규회원 등록 완료되었습니다.");
-
 			}
 
 			// 회원목록조회
 			else if (menu == 2) {
 				System.out.println("< 회원 목록 조회 메뉴로 이동합니다. >");
 				List<Swim> users = swimDao.listSearch();
-
 				for (Swim sw : users) {
 					System.out.println(sw.showInfo());
 				}
 				System.out.println("조회 완료되었습니다.");
+				System.out.printf("파일로 저장을 원하시면 1, 메인메뉴로 돌아가려면 아무 번호나 입력하세요.");
+				int file = Integer.parseInt(scn.nextLine());
+				if(file==1) {
+					um.storeToFile();
+					System.out.println("파일로 저장되었습니다.");
+				} else {
+					System.out.println("메뉴로 돌아갑니다.");
+				}
+				
 			}
 
 			// 회원상세조회
@@ -129,6 +119,7 @@ public class SwimMain {
 							String email = Utils.readStr("회원 이메일 > ");
 							String address = Utils.readStr("회원 주소 > ");
 							String course = Utils.readStr("수정할 강좌 [ 초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반 ] > ");
+							String tName = swimDao.setTea(course);// 강좌 등록 시 강사이름 자동지정
 							if (name.equals("quit") || sex.equals("quit") || birth.equals("quit")
 									|| phoneNum.equals("quit") || email.equals("quit") || address.equals("quit")
 									|| course.equals("quit")) {
@@ -146,21 +137,6 @@ public class SwimMain {
 								money = 60000;
 							} else if (course.equals("연수반")) {
 								money = 65000;
-							}
-
-							String tName = null; // 강좌 등록 시 강사이름 자동지정
-							if (course.equals("초급반")) {
-								tName = "이상현";
-							} else if (course.equals("중급반")) {
-								tName = "공경민";
-							} else if (course.equals("상급반")) {
-								tName = "강미지";
-							} else if (course.equals("고급반")) {
-								tName = "이영우";
-							} else if (course.equals("교정반")) {
-								tName = "조기한";
-							} else if (course.equals("연수반")) {
-								tName = "안혜진";
 							}
 
 							System.out.println("일반회원이면 1, 할인회원이면 2를 입력하세요.");
@@ -192,7 +168,6 @@ public class SwimMain {
 				System.out.printf("조회할 강좌를 입력하세요. [초급반 / 중급반 / 상급반 / 고급반 / 교정반 / 연수반] ");
 				String courseName = scn.nextLine();
 				List<Swim> list = swimDao.courseSearch(courseName);
-
 				for (Swim sm : list) {
 					System.out.println(sm.toString());
 				}
@@ -233,21 +208,19 @@ public class SwimMain {
 					if (tMenu == 1) { // 강사 조회
 						System.out.println("< 강사 조회 메뉴로 이동합니다. >");
 						List<Teacher> teachers = swimDao.tSearchList();
-
 						for (Teacher t : teachers) {
 							System.out.println(t.showInfo());
 						}
 						System.out.println("조회 완료되었습니다.");
 
-					} else if (tMenu == 2) { // 강사 상세조회 , 수정
+					} else if (tMenu == 2) { // 강사 상세조회, 수정
 						System.out.println("<강사 상세 조회 메뉴로 이동합니다.>");
 						System.out.printf("조회할 강사 번호 입력하세요. > ");
 						int tNo = Integer.parseInt(scn.nextLine());
 						Teacher t = swimDao.tsearch(tNo);
 
-						if (t != null) {
+						if (t != null) { //강사번호가 존재한다면
 							if (tNo == t.gettNo()) {
-
 								System.out.println(t);
 								System.out.printf("** 정보를 수정하시려면 1, 메인메뉴로 돌아가려면 아무번호나 입력하세요. **");
 								int choice = Integer.parseInt(scn.nextLine());
@@ -324,13 +297,12 @@ public class SwimMain {
 						} else {
 							System.out.println("강사 번호가 존재하지 않습니다. 메뉴로 돌아갑니다.");
 						}
-					} else if (tMenu == 0) {
+					} else if (tMenu == 0) { //메뉴 선택
 						System.out.println("이전 메뉴로 돌아갑니다.");
 						break;
 					}
 				}
-			}
-
+			} //end of teacherMain
 			// 프로그램 종료.
 			else if (menu == 0) {
 				System.out.println("회원관리 프로그램을 종료합니다.");
@@ -338,9 +310,8 @@ public class SwimMain {
 			} else {
 				System.out.println("잘못된 메뉴입니다.");
 			}
-
-		}
+		} //end of while.
 		scn.close();
 		System.out.println("프로그램 종료.");
-	}
-}
+	} //end of main.
+} 

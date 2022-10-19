@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwimDAO extends DAO {
-
 	// 로그인
 	public int login(String id, String pswd) {
 		String sql = "select * from login where id = ? and passwd = ?";
@@ -34,16 +33,21 @@ public class SwimDAO extends DAO {
 	public void insert(Swim swim) {
 		conn = getConnect();
 		String sql = "insert into swim (user_seq, user_name, user_sex, "
-				+ "user_birth, user_phone, user_email, user_address, " 
-				+ "user_course, user_money, creation_date, user_teacher)\r\n"
-				+ " values(user_seq.nextval, '" + swim.getName() 
-				+ "', '" + swim.getSex() + "', '" + swim.getBirth()
-				+ "', '" + swim.getPhoneNum() + "', '" + swim.getEmail() 
-				+ "', '" + swim.getAddress() + "', '"+ swim.getCourse() 
-				+ "', " + swim.getMoney() + ", sysdate, '" + swim.gettName() +"' )";
+				+ "user_birth, user_phone, user_email, user_address, "
+				+ "user_course, user_money, creation_date, user_teacher)"
+				+ " values(user_seq.nextval,?,?,?,?,?,?,?,?,sysdate,?)";
 		try {
-			stmt = conn.createStatement();
-			int r = stmt.executeUpdate(sql);
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, swim.getName());
+			psmt.setString(2, swim.getSex());
+			psmt.setString(3, swim.getBirth());
+			psmt.setString(4, swim.getPhoneNum());
+			psmt.setString(5, swim.getEmail());
+			psmt.setString(6, swim.getAddress());
+			psmt.setString(7, swim.getCourse());
+			psmt.setInt(8, swim.getMoney());
+			psmt.setString(9, swim.gettName());
+			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,19 +97,19 @@ public class SwimDAO extends DAO {
 			disconnect();
 		}
 		return swim;
-
 	}
+
 	// 강좌별 상세조회
 	public List<Swim> courseSearch(String course) {
 		conn = getConnect();
-		String sql = "select * from swim where user_course = ?";
+		String sql = "select * from swim where user_course = ? order by user_seq";
 		List<Swim> list = new ArrayList<>();
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, course);
-			
+
 			rs = psmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				list.add(new Swim(rs.getInt("user_seq"), rs.getString("user_name"), rs.getString("user_sex"),
 						rs.getString("user_birth"), rs.getString("user_phone"), rs.getString("user_email"),
 						rs.getString("user_address"), rs.getString("user_course"), rs.getInt("user_money"),
@@ -123,7 +127,7 @@ public class SwimDAO extends DAO {
 	public void update(Swim swim) {
 		String sql = " update swim " + " set user_name = ?, " + " user_sex = ?, " + " user_birth = ?, "
 				+ " user_phone = ?, " + " user_email = ?, " + " user_address =?, " + " user_course = ?, "
-				+ " user_money =?, " + " creation_date = ?" + " where user_seq = ?";
+				+ " user_money =?, " + " creation_date = ?," +" user_teacher =?"+" where user_seq = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -136,7 +140,8 @@ public class SwimDAO extends DAO {
 			psmt.setString(7, swim.getCourse());
 			psmt.setInt(8, swim.getMoney());
 			psmt.setString(9, swim.getDate());
-			psmt.setInt(10, swim.getUserNo());
+			psmt.setString(10, swim.gettName());
+			psmt.setInt(11, swim.getUserNo());
 
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 변경되었습니다.");
@@ -165,19 +170,22 @@ public class SwimDAO extends DAO {
 		}
 		return false;
 	}
-	
-	//강사 등록
+
+	// 강사 등록
 	public void tInsert(Teacher t) {
 		conn = getConnect();
-		String sql = "insert into teacher (teacher_seq, t_name, t_id, t_class, "
-				+ "hire_date, t_phone, licence)\r\n"
-				+ " values(teacher_seq.nextval, '" + t.getName() 
-				+ "', '" + t.getId() + "', '" + t.getCourse()
-				+ "', '" + t.getHireDate() + "', '" + t.getPhone() 
-				+ "', '" + t.getLicence() +"')";
+		String sql = "insert into teacher (teacher_seq, t_name, t_id, t_class, " + "hire_date, t_phone, licence)"
+				+ " values(teacher_seq.nextval, ?,?,?,?,?,?)";
 		try {
-			stmt = conn.createStatement();
-			int r = stmt.executeUpdate(sql);
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, t.getName());
+			psmt.setString(2, t.getId());
+			psmt.setString(3, t.getCourse());
+			psmt.setString(4, t.getHireDate());
+			psmt.setString(5, t.getPhone());
+			psmt.setString(6, t.getLicence());
+
+			int r = psmt.executeUpdate();
 			System.out.println("강사정보 " + r + "건 입력되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -185,7 +193,8 @@ public class SwimDAO extends DAO {
 			disconnect();
 		}
 	}
-	//강사 조회
+
+	// 강사 조회
 	public List<Teacher> tSearchList() {
 		conn = getConnect();
 		List<Teacher> list = new ArrayList<>();
@@ -203,7 +212,8 @@ public class SwimDAO extends DAO {
 		}
 		return list;
 	}
-	//강사 상세조회
+
+	// 강사 상세조회
 	public Teacher tsearch(int tNo) {
 		conn = getConnect();
 		String sql = "select * from teacher where teacher_seq = ?";
@@ -225,10 +235,10 @@ public class SwimDAO extends DAO {
 		}
 		return t;
 	}
-	//강사 수정
+
+	// 강사 수정
 	public void tUpdate(Teacher t) {
-		String sql = " update teacher " + " set t_name = ?, " + " t_id = ?, " 
-				+ " t_class = ?, "+ " hire_date = ?, " 
+		String sql = " update teacher " + " set t_name = ?, " + " t_id = ?, " + " t_class = ?, " + " hire_date = ?, "
 				+ " t_phone = ?, " + " licence =? " + " where teacher_seq = ?";
 		conn = getConnect();
 		try {
@@ -249,7 +259,8 @@ public class SwimDAO extends DAO {
 			disconnect();
 		}
 	}
-	//강사 삭제
+
+	// 강사 삭제
 	public boolean tDelete(int tNo) {
 		String sql = "delete from teacher where teacher_seq = ?";
 		conn = getConnect();
@@ -267,9 +278,25 @@ public class SwimDAO extends DAO {
 		}
 		return false;
 	}
-	
-//	public static String escEntered(String prompt) {
-//		System.out.println(prompt);
-//	}
 
+	// 강사 찾기
+	public String setTea(String course) {
+		conn = getConnect();
+		String sql = "select t_name from teacher where t_class =?";
+		String t = null;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, course);
+
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				t = rs.getString("t_name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return t;
+	}
 }

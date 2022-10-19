@@ -133,11 +133,12 @@ public class Swim {
 	@Override
 	public String toString() { // 상세조회
 		return "회원번호 : " + userNo + ", 이름: " + name + ", 성별: " + sex + ", 생년월일: " + birth + ", 연락처: " + phoneNum + ", 이메일: " + email
-				+ ", 주소: " + address + ", 강좌명: " + course + ", 이용료: " + money + ", 수강등록일: " + date + ", 강사명: " + tName;
+				+ ", 주소: " + address + ", 강좌명: " + course + ", 수강료: " + money + ", 수강등록일: " + date + ", 강사명: " + tName;
 	}
 
 	public String showInfo() { // 목록 조회
 		return "회원번호 : " + userNo + ", 이름: " + name + ", 성별: " + sex + ", 연락처: " + phoneNum + ", 강좌명: " + course;
 	}
+	
 
 }
