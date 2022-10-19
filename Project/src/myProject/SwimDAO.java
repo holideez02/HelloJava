@@ -78,7 +78,11 @@ public class SwimDAO extends DAO {
 	// 회원 상세조회
 	public Swim search(int userNo) {
 		conn = getConnect();
-		String sql = "select * from swim where user_seq = ?";
+		String sql = "select s.user_name, s.user_sex, s.user_birth, s.user_phone, s.user_email"
+				+ ", s.user_address, s.user_course, s.user_money, s.creation_date, c.teacher "
+				+ "from swim s JOIN course c "
+				+ "ON s.user_course = c.course "
+				+ "where s.user_seq = ?";
 		Swim swim = null;
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -86,10 +90,10 @@ public class SwimDAO extends DAO {
 
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				swim = new Swim(rs.getInt("user_seq"), rs.getString("user_name"), rs.getString("user_sex"),
-						rs.getString("user_birth"), rs.getString("user_phone"), rs.getString("user_email"),
-						rs.getString("user_address"), rs.getString("user_course"), rs.getInt("user_money"),
-						rs.getString("creation_date"), rs.getString("user_teacher"));
+				swim = new Swim(rs.getInt("user_seq"), rs.getString("s.user_name"), rs.getString("s.user_sex"),
+						rs.getString("s.user_birth"), rs.getString("s.user_phone"), rs.getString("s.user_email"),
+						rs.getString("s.user_address"), rs.getString("s.user_course"), rs.getInt("s.user_money"),
+						rs.getString("s.creation_date"), rs.getString("c.teacher"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -299,4 +303,5 @@ public class SwimDAO extends DAO {
 		}
 		return t;
 	}
+
 }

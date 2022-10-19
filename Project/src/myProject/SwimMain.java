@@ -1,15 +1,17 @@
 package myProject;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Scanner;
 
 public class SwimMain {
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		SwimDAO swimDao = new SwimDAO();
 		Scanner scn = new Scanner(System.in);
 		UserManage um = UserManage.getInstance();
+		ExcelController ec = new ExcelController();
 
 		boolean checked = false;
 		String userId1 = null;
@@ -89,7 +91,7 @@ public class SwimMain {
 				System.out.printf("파일로 저장을 원하시면 1, 메인메뉴로 돌아가려면 아무 번호나 입력하세요.");
 				int file = Integer.parseInt(scn.nextLine());
 				if(file==1) {
-					um.storeToFile();
+					ec.downloadExcel();
 					System.out.println("파일로 저장되었습니다.");
 				} else {
 					System.out.println("메뉴로 돌아갑니다.");
