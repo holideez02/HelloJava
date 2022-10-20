@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ExcelController {
 
-    public void downloadExcel() throws IOException { //https://shanepark.tistory.com/260, https://gaemi606.tistory.com/entry/Java-Excel-%ED%8C%8C%EC%9D%BC-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0
+    public void downloadExcel() throws IOException {
     	SwimDAO dao = new SwimDAO();
  
         Workbook workbook = new HSSFWorkbook();
@@ -41,7 +41,7 @@ public class ExcelController {
         String path = currDir.getAbsolutePath();
         String fileLocation = path.substring(0, path.length() - 1) + "userList.xlsx";    // 파일명 설정
         
-        System.out.println(fileLocation);
+        System.out.println(fileLocation+"에 저장되었습니다.");
 
         FileOutputStream fileOutputStream = new FileOutputStream(fileLocation);        // 파일 생성
         workbook.write(fileOutputStream);                                            // 엑셀파일로 작성

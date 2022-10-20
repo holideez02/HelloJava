@@ -28,11 +28,12 @@ public class SwimDAO extends DAO {
 		}
 		return login;
 	}
-	//로그인 계정 상세조회
+
+	// 관리자 계정 분실시에 로그인과 비밀번호 찾기
 	public Login getLogin(String userName) {
 		conn = getConnect();
 		String sql = "select * from login where user_name =?";
-		
+
 		Login lg = null;
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -40,8 +41,8 @@ public class SwimDAO extends DAO {
 
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				lg = new Login(rs.getString("id"), rs.getString("passwd"), 
-						rs.getString("user_name"), rs.getString("email"));
+				lg = new Login(rs.getString("id"), rs.getString("passwd"), rs.getString("user_name"),
+						rs.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -50,25 +51,33 @@ public class SwimDAO extends DAO {
 		}
 		return lg;
 	}
-	
-	// 회원생성
-	public void insert(Swim swim) {
+
+	// Create. 회원생성
+	public Swim insert(Swim swim) {
 		conn = getConnect();
-		
+
 		String seq = "select user_seq.nextval from dual";
-		
+		String mon = "select user_money from swim";
+
 		String sql = "insert into swim (user_seq, user_name, user_sex, "
 				+ "user_birth, user_phone, user_email, user_address, "
 				+ "user_course, user_money, creation_date, user_teacher)"
 				+ " values(user_seq.nextval,?,?,?,?,?,?,?,?,sysdate,?)";
-		try {
+		try { // user_seq 얻어옴
 			int seqInt = 0;
 			psmt = conn.prepareStatement(seq);
 			rs = psmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				seqInt = rs.getInt(1);
 			}
-			
+
+			int money = 0; //money 얻어옴
+			psmt = conn.prepareStatement(mon);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				money = rs.getInt(1);
+			}
+
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, swim.getName());
 			psmt.setString(2, swim.getSex());
@@ -81,20 +90,22 @@ public class SwimDAO extends DAO {
 			psmt.setString(9, swim.gettName());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력되었습니다.");
-			
+
 			swim.setUserNo(seqInt);
+			swim.setMoney(money);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
+		return swim;
 	}
 
-	// 회원목록 조회
+	// Read. 회원목록 조회
 	public List<Swim> listSearch(Swim sm) {
 		conn = getConnect();
 		List<Swim> list = new ArrayList<Swim>();
-		
+
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select * from swim order by user_seq");
@@ -110,14 +121,12 @@ public class SwimDAO extends DAO {
 		return list;
 	}
 
-	// 회원 상세조회
+	// Read. 회원 상세조회
 	public Swim search(int userNo) {
 		conn = getConnect();
 		String sql = "select s.user_seq, s.user_name, s.user_sex, s.user_birth, s.user_phone, s.user_email"
 				+ ", s.user_address, s.user_course, s.user_money, s.creation_date, c.teacher "
-				+ "from swim s JOIN course c "
-				+ "ON s.user_course = c.course "
-				+ "where s.user_seq = ?";
+				+ "from swim s JOIN course c " + "ON s.user_course = c.course " + "where s.user_seq = ?";
 		Swim swim = null;
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -138,7 +147,7 @@ public class SwimDAO extends DAO {
 		return swim;
 	}
 
-	// 강좌별 상세조회
+	// Read. 강좌별 상세조회
 	public List<Swim> courseSearch(String course) {
 		conn = getConnect();
 		String sql = "select * from swim where user_course = ? order by user_seq";
@@ -162,11 +171,11 @@ public class SwimDAO extends DAO {
 		return list;
 	}
 
-	// 수정
+	// Update. 회원수정
 	public void update(Swim swim) {
 		String sql = " update swim " + " set user_name = ?, " + " user_sex = ?, " + " user_birth = ?, "
 				+ " user_phone = ?, " + " user_email = ?, " + " user_address =?, " + " user_course = ?, "
-				+ " user_money =?, " + " creation_date = ?," +" user_teacher =?"+" where user_seq = ?";
+				+ " user_money =?, " + " creation_date = ?," + " user_teacher =?" + " where user_seq = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -191,7 +200,7 @@ public class SwimDAO extends DAO {
 		}
 	}
 
-	// 삭제
+	// Delete. 삭제
 	public boolean delete(int UserNo) {
 		String sql = "delete from swim where user_seq = ?";
 		conn = getConnect();
@@ -210,7 +219,7 @@ public class SwimDAO extends DAO {
 		return false;
 	}
 
-	// 강사 등록
+	// Create. 강사 등록
 	public void tInsert(Teacher t) {
 		conn = getConnect();
 		String sql = "insert into teacher (teacher_seq, t_name, t_id, t_class, " + "hire_date, t_phone, licence)"
@@ -233,7 +242,7 @@ public class SwimDAO extends DAO {
 		}
 	}
 
-	// 강사 조회
+	// Read. 강사 조회
 	public List<Teacher> tSearchList() {
 		conn = getConnect();
 		List<Teacher> list = new ArrayList<>();
@@ -252,7 +261,7 @@ public class SwimDAO extends DAO {
 		return list;
 	}
 
-	// 강사 상세조회
+	// Read. 강사 상세조회
 	public Teacher tsearch(int tNo) {
 		conn = getConnect();
 		String sql = "select * from teacher where teacher_seq = ?";
@@ -275,7 +284,7 @@ public class SwimDAO extends DAO {
 		return t;
 	}
 
-	// 강사 수정
+	// Update. 강사 수정
 	public void tUpdate(Teacher t) {
 		String sql = " update teacher " + " set t_name = ?, " + " t_id = ?, " + " t_class = ?, " + " hire_date = ?, "
 				+ " t_phone = ?, " + " licence =? " + " where teacher_seq = ?";
@@ -299,7 +308,7 @@ public class SwimDAO extends DAO {
 		}
 	}
 
-	// 강사 삭제
+	// Delete. 강사 삭제
 	public boolean tDelete(int tNo) {
 		String sql = "delete from teacher where teacher_seq = ?";
 		conn = getConnect();
@@ -338,18 +347,19 @@ public class SwimDAO extends DAO {
 		}
 		return t;
 	}
-	//수강료 지정
+
+	// 수강료 지정
 	public int setMoney(String course) {
 		conn = getConnect();
 		String sql = " select money from course where course= ?";
 		int money = 0;
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, course);
-			
+
 			rs = psmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				money = rs.getInt("money");
 			}
 		} catch (SQLException e) {
@@ -359,12 +369,13 @@ public class SwimDAO extends DAO {
 		}
 		return money;
 	}
-	
-	public List<Swim> swimList(Swim sm){
+
+	public List<Swim> swimList(Swim sm) {
 		List<Swim> userList = new ArrayList<Swim>();
 		conn = getConnect();
 		String sql = "select * from swim"//
-				+ "   where user_seq = decode(?,0, user_seq, ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(employee_id), 그렇지 않으면 매개값으로 들어온 녀석과 비교
+				+ "   where user_seq = decode(?,0, user_seq, ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(employee_id), 그렇지 않으면 매개값으로
+																	// 들어온 녀석과 비교
 				+ "   and   user_name like '%'||?||'%' " //
 				+ "   and   user_sex like '%'||?||'%' "//
 				+ "   and   to_char(user_birth, 'yyyy-mm-dd') like '%'||?||'%' "//
@@ -374,10 +385,10 @@ public class SwimDAO extends DAO {
 				+ "   and   user_course like '%'||?||'%'  "//
 				+ "   and   user_money = decode(?,0, user_money, ?)"//
 				+ "   and   to_char(creation_date, 'yyyy-mm-dd') like '%'||?||'%'  "//
-				+ "   and   user_teacher = nvl(?, user_teacher) "// 들어오는 값이 null이면 job_id값으로. 
+				+ "   and   user_teacher = nvl(?, user_teacher) "// 들어오는 값이 null이면 job_id값으로.
 				+ " order by user_seq";
 		try {
-			psmt = conn.prepareStatement(sql); //sql에서 갖고 온 결과를 list에 담아주기
+			psmt = conn.prepareStatement(sql); // sql에서 갖고 온 결과를 list에 담아주기
 			psmt.setInt(1, sm.getUserNo());
 			psmt.setInt(2, sm.getUserNo());
 			psmt.setString(3, sm.getName());
@@ -391,10 +402,10 @@ public class SwimDAO extends DAO {
 			psmt.setInt(11, sm.getMoney());
 			psmt.setString(12, sm.getDate());
 			psmt.setString(13, sm.gettName());
-			
-			rs = psmt.executeQuery(); 
-			
-			while(rs.next()) {
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
 				int uNo = rs.getInt("user_seq");
 				String name = rs.getString("user_name");
 				String sex = rs.getString("user_sex");
@@ -406,16 +417,16 @@ public class SwimDAO extends DAO {
 				String money = rs.getString("user_money");
 				String date = rs.getString("creation_date");
 				String tName = rs.getString("user_teacher");
-						
+
 				Swim s = new Swim(uNo, name, sex, birth, phone, email, address, course, uNo, date, tName);
 				userList.add(s);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-		} 
+		}
 		return userList;
 	}
 }

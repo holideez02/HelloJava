@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class SwimMain {
 	public static void main(String[] args) throws SQLException, IOException {
 		SwimDAO swimDao = new SwimDAO();
-		Scanner scn = new Scanner(System.in);
 		UserManage um = UserManage.getInstance();
 		ExcelController ec = new ExcelController();
 		MailApp app = new MailApp();
+		Scanner scn = new Scanner(System.in);
 
 		boolean checked = false;
 		String userId1 = null;
@@ -100,6 +100,7 @@ public class SwimMain {
 																													// quit가
 																													// 있다면
 						|| email.equals("quit") || address.equals("quit") || course.equals("quit")) {
+					System.out.println("나가기 선택. 메뉴로 돌아갑니다.");
 					continue; // 다시 메인메뉴로 갑니다
 				}
 				if (name.equals("") || sex.equals("") || birth.equals("") || phoneNum.equals("") || email.equals("")
@@ -131,7 +132,6 @@ public class SwimMain {
 				int file = Integer.parseInt(scn.nextLine());
 				if (file == 1) {
 					ec.downloadExcel();
-					System.out.println("파일로 저장되었습니다.");
 				} else {
 					System.out.println("메뉴로 돌아갑니다.");
 				}
@@ -165,6 +165,7 @@ public class SwimMain {
 							if (name.equals("quit") || sex.equals("quit") || birth.equals("quit")
 									|| phoneNum.equals("quit") || email.equals("quit") || address.equals("quit")
 									|| course.equals("quit")) {
+								System.out.println("나가기 선택. 메뉴로 돌아갑니다.");
 								continue;
 							}
 							if (name.equals("") || sex.equals("") || birth.equals("") || phoneNum.equals("")
@@ -270,6 +271,7 @@ public class SwimMain {
 									if (tName.equals("quit") || tId.equals("quit") || tPhone.equals("quit")
 											|| tCourse.equals("quit") || hireDate.equals("quit")
 											|| licence.equals("quit")) {
+										System.out.println("나가기 선택. 메뉴로 돌아갑니다.");
 										continue;
 									}
 									if (tName.equals("") || tId.equals("") || tPhone.equals("") || tCourse.equals("")
@@ -300,6 +302,7 @@ public class SwimMain {
 
 						if (tName.equals("quit") || tId.equals("quit") || tPhone.equals("quit")
 								|| tCourse.equals("quit") || hireDate.equals("quit") || licence.equals("quit")) {
+							System.out.println("나가기 선택. 메뉴로 돌아갑니다.");
 							continue;
 						}
 						if (tName.equals("") || tId.equals("") || tPhone.equals("") || tCourse.equals("")

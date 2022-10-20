@@ -121,7 +121,7 @@ public class SwimScreen extends JFrame implements MouseListener, ActionListener 
 		}
 		list = dao.swimList(new Swim(0, fields[1].getText(), fields[2].getText(), 
 				fields[3].getText(), fields[4].getText(), fields[5].getText(), 
-				fields[6].getText(),fields[7].getText(), money, 
+				fields[6].getText(),fields[7].getText(), 0, 
 				fields[9].getText(), fields[10].getText()));
 
 		for (int i = 0; i < list.size(); i++) {
