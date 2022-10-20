@@ -27,7 +27,7 @@ public class UserManage {
 	// 입력된 내용을 파일에 저장하기.
 	public void storeToFile() {
 		SwimDAO dao = new SwimDAO();
-		userList=(ArrayList<Swim>) dao.listSearch();
+		userList=(ArrayList<Swim>) dao.listSearch(null);
 		try {
 			FileWriter fw = new FileWriter(file);
 			

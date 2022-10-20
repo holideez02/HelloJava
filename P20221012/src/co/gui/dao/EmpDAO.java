@@ -7,24 +7,41 @@ import java.util.List;
 public class EmpDAO extends DAO{ //DB에 접근해서 CRUD기능을 처리하는 클래스. 
 
 	// 입력
-	public void insertEmp(EmployeeVO vo) {
+	public EmployeeVO insertEmp(EmployeeVO vo) {
 		getConnect();
+		
+		String seq = "select employees_seq.nextval from dual";
+		
 		String sql = "insert into empl (employee_id, first_name, last_name, email, hire_date, job_id) "
-				+ "values(employees_seq.nextval, ?,?,?,?,?)";
+				+ "values(?,?,?,?,?,?)";
 		try {
+			//sequence 획득.
+			int seqInt = 0;
+			psmt = conn.prepareStatement(seq);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				seqInt = rs.getInt(1); //첫번째 칼럼을 가지고 온다는 뜻
+			}
+			
+			//insert작업
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, vo.getFirstName());
-			psmt.setString(2, vo.getLastName());
-			psmt.setString(3, vo.getEmail());
-			psmt.setString(4, vo.getHireDate());
-			psmt.setString(5, vo.getJobId());
+			psmt.setInt(1, seqInt);
+			psmt.setString(2, vo.getFirstName());
+			psmt.setString(3, vo.getLastName());
+			psmt.setString(4, vo.getEmail());
+			psmt.setString(5, vo.getHireDate());
+			psmt.setString(6, vo.getJobId());
 			int r = psmt.executeUpdate(); //실제 쿼리를 실행. 처리된 건수를 반영
 			System.out.println(r + "건 입력됨. ");
+			
+			//새로 입력하게 된 사원번호를 알고싶어서 
+			vo.setEmployeeId(seqInt); //넣어줄게~
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
+		return vo;
 	}
 	// 삭제
 	public void deleteEmp(int employeeId) {

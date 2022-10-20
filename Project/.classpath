@@ -7,6 +7,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Dev/ojdbc6_g.jar"/>
-	<classpathentry kind="lib" path="C:/Users/USER/Downloads/poi-5.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Dev/poi-5.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Dev/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Dev/mail-1.4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Dev/activation-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

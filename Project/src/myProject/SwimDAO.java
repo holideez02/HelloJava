@@ -28,15 +28,47 @@ public class SwimDAO extends DAO {
 		}
 		return login;
 	}
+	//로그인 계정 상세조회
+	public Login getLogin(String userName) {
+		conn = getConnect();
+		String sql = "select * from login where user_name =?";
+		
+		Login lg = null;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userName);
 
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				lg = new Login(rs.getString("id"), rs.getString("passwd"), 
+						rs.getString("user_name"), rs.getString("email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return lg;
+	}
+	
 	// 회원생성
 	public void insert(Swim swim) {
 		conn = getConnect();
+		
+		String seq = "select user_seq.nextval from dual";
+		
 		String sql = "insert into swim (user_seq, user_name, user_sex, "
 				+ "user_birth, user_phone, user_email, user_address, "
 				+ "user_course, user_money, creation_date, user_teacher)"
 				+ " values(user_seq.nextval,?,?,?,?,?,?,?,?,sysdate,?)";
 		try {
+			int seqInt = 0;
+			psmt = conn.prepareStatement(seq);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				seqInt = rs.getInt(1);
+			}
+			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, swim.getName());
 			psmt.setString(2, swim.getSex());
@@ -49,6 +81,8 @@ public class SwimDAO extends DAO {
 			psmt.setString(9, swim.gettName());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력되었습니다.");
+			
+			swim.setUserNo(seqInt);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -57,9 +91,10 @@ public class SwimDAO extends DAO {
 	}
 
 	// 회원목록 조회
-	public List<Swim> listSearch() {
+	public List<Swim> listSearch(Swim sm) {
 		conn = getConnect();
-		List<Swim> list = new ArrayList<>();
+		List<Swim> list = new ArrayList<Swim>();
+		
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select * from swim order by user_seq");
@@ -90,10 +125,10 @@ public class SwimDAO extends DAO {
 
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				swim = new Swim(rs.getInt("s.user_seq"), rs.getString("s.user_name"), rs.getString("s.user_sex"),
-						rs.getString("s.user_birth"), rs.getString("s.user_phone"), rs.getString("s.user_email"),
-						rs.getString("s.user_address"), rs.getString("s.user_course"), rs.getInt("s.user_money"),
-						rs.getString("s.creation_date"), rs.getString("c.teacher"));
+				swim = new Swim(rs.getInt("user_seq"), rs.getString("user_name"), rs.getString("user_sex"),
+						rs.getString("user_birth"), rs.getString("user_phone"), rs.getString("user_email"),
+						rs.getString("user_address"), rs.getString("user_course"), rs.getInt("user_money"),
+						rs.getString("creation_date"), rs.getString("teacher"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -303,5 +338,84 @@ public class SwimDAO extends DAO {
 		}
 		return t;
 	}
-
+	//수강료 지정
+	public int setMoney(String course) {
+		conn = getConnect();
+		String sql = " select money from course where course= ?";
+		int money = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, course);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				money = rs.getInt("money");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return money;
+	}
+	
+	public List<Swim> swimList(Swim sm){
+		List<Swim> userList = new ArrayList<Swim>();
+		conn = getConnect();
+		String sql = "select * from swim"//
+				+ "   where user_seq = decode(?,0, user_seq, ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(employee_id), 그렇지 않으면 매개값으로 들어온 녀석과 비교
+				+ "   and   user_name like '%'||?||'%' " //
+				+ "   and   user_sex like '%'||?||'%' "//
+				+ "   and   to_char(user_birth, 'yyyy-mm-dd') like '%'||?||'%' "//
+				+ "   and   user_phone like '%'||?||'%'  "//
+				+ "   and   user_email like '%'||?||'%'  "//
+				+ "   and   user_address like '%'||?||'%'  "//
+				+ "   and   user_course like '%'||?||'%'  "//
+				+ "   and   user_money = decode(?,0, user_money, ?)"//
+				+ "   and   to_char(creation_date, 'yyyy-mm-dd') like '%'||?||'%'  "//
+				+ "   and   user_teacher = nvl(?, user_teacher) "// 들어오는 값이 null이면 job_id값으로. 
+				+ " order by user_seq";
+		try {
+			psmt = conn.prepareStatement(sql); //sql에서 갖고 온 결과를 list에 담아주기
+			psmt.setInt(1, sm.getUserNo());
+			psmt.setInt(2, sm.getUserNo());
+			psmt.setString(3, sm.getName());
+			psmt.setString(4, sm.getSex());
+			psmt.setString(5, sm.getBirth());
+			psmt.setString(6, sm.getPhoneNum());
+			psmt.setString(7, sm.getEmail());
+			psmt.setString(8, sm.getAddress());
+			psmt.setString(9, sm.getCourse());
+			psmt.setInt(10, sm.getMoney());
+			psmt.setInt(11, sm.getMoney());
+			psmt.setString(12, sm.getDate());
+			psmt.setString(13, sm.gettName());
+			
+			rs = psmt.executeQuery(); 
+			
+			while(rs.next()) {
+				int uNo = rs.getInt("user_seq");
+				String name = rs.getString("user_name");
+				String sex = rs.getString("user_sex");
+				String birth = rs.getString("user_birth");
+				String phone = rs.getString("user_phone");
+				String email = rs.getString("user_email");
+				String address = rs.getString("user_address");
+				String course = rs.getString("user_course");
+				String money = rs.getString("user_money");
+				String date = rs.getString("creation_date");
+				String tName = rs.getString("user_teacher");
+						
+				Swim s = new Swim(uNo, name, sex, birth, phone, email, address, course, uNo, date, tName);
+				userList.add(s);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		} 
+		return userList;
+	}
 }

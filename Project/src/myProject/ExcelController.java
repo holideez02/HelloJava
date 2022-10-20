@@ -12,12 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelController {
-	 
-//    @Autowired
-//    BoardRepository repository;
+
     public void downloadExcel() throws IOException { //https://shanepark.tistory.com/260, https://gaemi606.tistory.com/entry/Java-Excel-%ED%8C%8C%EC%9D%BC-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0
     	SwimDAO dao = new SwimDAO();
-//    	userList=(ArrayList<Swim>) dao.listSearch();
  
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("회원 목록");
@@ -30,8 +27,7 @@ public class ExcelController {
         headerRow.createCell(3).setCellValue("생년월일");
         headerRow.createCell(4).setCellValue("연락처");
  
-//        List<Swim> list = repository.findAll();
-        List<Swim> list = new ArrayList<>();
+        List<Swim> list = dao.listSearch(null);
         for (Swim sm : list) {
             Row row = sheet.createRow(rowNo++);
             row.createCell(0).setCellValue(sm.getUserNo());
@@ -44,11 +40,12 @@ public class ExcelController {
         File currDir = new File(".");                // 현재 프로젝트 경로를 가져옴
         String path = currDir.getAbsolutePath();
         String fileLocation = path.substring(0, path.length() - 1) + "userList.xlsx";    // 파일명 설정
-
-//        Workbook workbook = createWorkBook(tables);        // workbook을 반환하는 메서드
+        
+        System.out.println(fileLocation);
 
         FileOutputStream fileOutputStream = new FileOutputStream(fileLocation);        // 파일 생성
         workbook.write(fileOutputStream);                                            // 엑셀파일로 작성
         workbook.close();
     }
+	
 }

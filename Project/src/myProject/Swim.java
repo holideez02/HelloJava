@@ -12,8 +12,6 @@ public class Swim {
 	private int money; // 수강료
 	private String date; // 등록일자
 	private String tName; //등록한 강좌의 강사이름
-	private String id; // 아이디
-	private String pswd; // 패스워드
 
 	public Swim() {};
 	public Swim(int userNo, String name, String sex, String birth, String phoneNum, String email, String address, String course,
@@ -42,7 +40,8 @@ public class Swim {
 		this.phoneNum = phoneNum;
 		this.course = course;
 	}
-
+	
+	
 
 	public int getUserNo() {
 		return userNo;
@@ -130,6 +129,7 @@ public class Swim {
 	public void settName(String tName) {
 		this.tName = tName;
 	}
+
 	@Override
 	public String toString() { // 상세조회
 		return "회원번호 : " + userNo + ", 이름: " + name + ", 성별: " + sex + ", 생년월일: " + birth + ", 연락처: " + phoneNum + ", 이메일: " + email
