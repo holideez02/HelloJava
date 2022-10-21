@@ -374,7 +374,7 @@ public class SwimDAO extends DAO {
 		List<Swim> userList = new ArrayList<Swim>();
 		conn = getConnect();
 		String sql = "select * from swim"//
-				+ "   where user_seq = decode(?,0, user_seq, ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(employee_id), 그렇지 않으면 매개값으로
+				+ "   where user_seq = decode(?,0, user_seq, ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(user_seq), 그렇지 않으면 매개값으로
 																	// 들어온 녀석과 비교
 				+ "   and   user_name like '%'||?||'%' " //
 				+ "   and   user_sex like '%'||?||'%' "//

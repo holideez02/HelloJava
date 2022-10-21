@@ -1,4 +1,4 @@
-package myProject;
+package co.edu.emp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+// DB연결 Connection 생성해주는 역할해주는 클래스. 반복되는 작업이니까~
 public class DAO {
 	Connection conn;
 	Statement stmt;
@@ -16,7 +17,7 @@ public class DAO {
 	public Connection getConnect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver"); // oracleDriver 클래스 불러옴
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.15:1521:xe", "hr", "hr");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 			System.out.println("연결 성공");
 
 		} catch (Exception e) {
@@ -38,4 +39,3 @@ public class DAO {
 	}
 
 }
-

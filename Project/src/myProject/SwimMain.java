@@ -20,7 +20,7 @@ public class SwimMain {
 
 		// 관리자 로그인
 		while (!checked) {
-			System.out.println("1. 로그인 2. 비밀번호 찾기");
+			System.out.println("1. 로그인 2. 계정 찾기");
 			int menu = Integer.parseInt(scn.nextLine());
 			if (menu == 1) {
 				System.out.printf("ID : ");
@@ -85,7 +85,7 @@ public class SwimMain {
 
 			// 회원등록
 			if (menu == 1) {
-				System.out.println("< 회원 등록 메뉴로 이동합니다. >");
+				System.out.println("< 회원 등록 메뉴로 이동합니다. 나가고 싶으시면 quit를 입력하세요! >");
 				String name = Utils.readStr("회원 이름 > ");
 				String sex = Utils.readStr("회원 성별(남/여) > ");
 				String birth = Utils.readStr("회원 생년월일 > ");
@@ -152,7 +152,7 @@ public class SwimMain {
 						int choice = Integer.parseInt(scn.nextLine());
 
 						if (choice == 1) {// 수정 메뉴로 이동
-							System.out.println("< 회원 수정 메뉴로 이동합니다. >");
+							System.out.println("< 회원 수정 메뉴로 이동합니다. 나가고 싶으시면 quit를 입력하세요! >");
 							String name = Utils.readStr("회원 이름 > ");
 							String sex = Utils.readStr("회원 성별(남/여) > ");
 							String birth = Utils.readStr("회원 생년월일 > ");
@@ -260,7 +260,7 @@ public class SwimMain {
 								System.out.printf("** 정보를 수정하시려면 1, 메인메뉴로 돌아가려면 아무번호나 입력하세요. **");
 								int choice = Integer.parseInt(scn.nextLine());
 								if (choice == 1) { // 강사정보 수정하려면
-									System.out.println("< 강사 수정 메뉴로 이동합니다 >");
+									System.out.println("< 강사 수정 메뉴로 이동합니다. 나가고 싶으시면 quit를 입력하세요! >");
 									String tName = Utils.readStr("수정할 강사 이름 > ");
 									String tId = Utils.readStr("수정할 강사 직책 > ");
 									String tPhone = Utils.readStr("수정할 연락처 > ");
@@ -292,7 +292,7 @@ public class SwimMain {
 							continue;
 						}
 					} else if (tMenu == 3) { // 강사 등록
-						System.out.println("< 강사 등록 메뉴로 이동합니다. >");
+						System.out.println("< 강사 등록 메뉴로 이동합니다. 나가고 싶으시면 quit를 입력하세요! >");
 						String tName = Utils.readStr("이름 > ");
 						String tId = Utils.readStr("직책 > ");
 						String tPhone = Utils.readStr("연락처 > ");
