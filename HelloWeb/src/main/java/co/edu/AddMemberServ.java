@@ -19,7 +19,7 @@ public class AddMemberServ extends HttpServlet {
 	public AddMemberServ() {
 		super();
 	}
-
+	//get 방식의 요청. 톰캣이 알아서 get이라는 메소드를 호출. 
 	protected void doGet(HttpServletRequest request, //
 			HttpServletResponse response) //처리된 서버 상태나, 사용자가 요청했던 값..같은 것들을 웹브라우저로 던져줌.
 			throws ServletException, IOException {
@@ -55,10 +55,13 @@ public class AddMemberServ extends HttpServlet {
 		
 		
 	}
-
+	//post 방식의 요청시 실행되는 메소드. 톰캣이 처리해줌! 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		response.setContentType("text/html;charset=UTF-8"); //실행되는게 html입니다.
+//		doGet(request, response);
+		PrintWriter out = response.getWriter();//사용자의 브라우저(출력스트림 생성) 출력스트림 선언. 요청정보를 담당해주는게 request 응답은 response.
+		out.print("<h3>Post 방식의 요청입니다. </h3>");
 	}
 
 }

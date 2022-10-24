@@ -6,7 +6,7 @@
 </head>
 <body>
     <!--사원번호, last_name, email, hire_date, job_id-->
-	<form action="../addMemberServlet">
+	<form action="../addMemberServlet" method="post"> <!-- 지정해주지 않아도 메소드는 기본으로 get이 따라옴-> 주소에 정보들이 다 포함됨. post방식으로 하면 주소에서 값들이 가려져셔 좋다.-->
         <label for="employee_id">사원번호
             <input type="text" name="employee_id" id="employee_id">
         </label><br>

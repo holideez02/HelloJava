@@ -83,7 +83,7 @@ public class EmpDAO extends DAO{ //DB에 접근해서 CRUD기능을 처리하는
 		List<EmployeeVO> empList = new ArrayList<EmployeeVO>();
 		getConnect();
 		String sql = "select * from empl"//
-				+ "   where employee_id = decode(?,0, employee_id, ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(employee_id), 그렇지 않으면 매개값으로 들어온 녀석과 비교
+				+ "   where nvl(employee_id,0) = decode(?,0, nvl(employee_id,0), ?)" // 들어온 값이 0이면, 전체 값을 다 조회하고(employee_id), 그렇지 않으면 매개값으로 들어온 녀석과 비교
 				+ "   and   first_name like '%'||?||'%' " //
 				+ "   and   last_name like '%'||?||'%' "//
 				+ "   and   email like '%'||?||'%'  "//
