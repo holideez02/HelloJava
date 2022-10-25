@@ -8,5 +8,6 @@
 </head>
 <body>
   <h3>회원정보 수정완료.</h3>
+  <%@ include file="home.jsp" %> <!-- 페이지 내에 다른 페이지를 추가 -->
 </body>
 </html>

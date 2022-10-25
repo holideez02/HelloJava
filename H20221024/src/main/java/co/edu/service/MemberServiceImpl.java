@@ -27,13 +27,18 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberVO findMemmber(String id) {
+	public MemberVO findMember(String id) {
 		return dao.memberSearch(id);
 	}
 
 	@Override
 	public List<MemberVO> memberList() {
 		return dao.memberList();
+	}
+
+	@Override
+	public MemberVO login(String id, String passwd) {
+		return dao.login(id, passwd);
 	}
 
 }

@@ -33,7 +33,7 @@ public class MemberDAO extends DAO{
 	
 	public MemberVO memberSearch(String id) { //한 건 조회
 		conn = getConnect();
-		String sql = "select id, passwd, name, email"
+		String sql = "select * "
 				+ "from members "
 				+ "where id = ?";
 		MemberVO vo = null;
@@ -43,8 +43,11 @@ public class MemberDAO extends DAO{
 			
 			rs = psmt.executeQuery();
 			if(rs.next()) {
-				vo = new MemberVO(rs.getString("id"), rs.getString("passwd")
-						, rs.getString("name"), rs.getString("email"));
+				vo = new MemberVO(rs.getString("id")
+						, rs.getString("passwd")
+						, rs.getString("name")
+						, rs.getString("email")
+						, rs.getString("responsibility"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +82,7 @@ public class MemberDAO extends DAO{
 		
 	}
 	
-	public boolean memberDelete(String id) {
+	public boolean memberDelete(String id) { //삭제
 		conn = getConnect();
 		String sql = "delete from members where id =?";
 		try {
@@ -104,8 +107,11 @@ public class MemberDAO extends DAO{
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
-				list.add(new MemberVO(rs.getString("id"), rs.getString("passwd")
-						, rs.getString("name"), rs.getString("email")));
+				list.add(new MemberVO(rs.getString("id"), 
+						rs.getString("passwd")
+						, rs.getString("name")
+						, rs.getString("email")
+						, rs.getString("responsibility")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,5 +120,31 @@ public class MemberDAO extends DAO{
 		}
 		return list;
 	}
-
+	
+	//String id, String passwd를 넘기는 login 메소드 => 리턴은 MemberVO로.
+	public MemberVO login(String id, String passwd) {
+		getConnect();
+		String sql = "select * from members where id=? and passwd=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, passwd);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				vo.setPasswd(rs.getString("passwd"));
+				vo.setResponsibility(rs.getString("responsibility"));
+				return vo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null;
+	}
 }

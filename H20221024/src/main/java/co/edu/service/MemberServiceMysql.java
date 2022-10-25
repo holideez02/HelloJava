@@ -22,12 +22,18 @@ public class MemberServiceMysql implements MemberService{
 	}
 
 	@Override
-	public MemberVO findMemmber(String id) {
+	public MemberVO findMember(String id) {
 		return null;
 	}
 
 	@Override
 	public List<MemberVO> memberList() {
+		return null;
+	}
+
+	@Override
+	public MemberVO login(String id, String passwd) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
