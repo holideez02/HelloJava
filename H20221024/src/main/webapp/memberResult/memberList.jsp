@@ -19,7 +19,7 @@
 			<% for (MemberVO vo : list) { %>
 			   <tr>
 				   <td><a href ="./memberSearchForm.do?id=<%=vo.getId() %>&job=search"><%=vo.getId() %></a></td>
-				   <td><a href ="./memberModifyForm.do?name=<%=vo.getName() %>&job=update"><%=vo.getName() %></td> <!-- 수정하는 페이지. -->
+				   <td><a href ="./memberModifyForm.do?name=<%=vo.getName() %>&job=update"><%=vo.getName() %></a></td> <!-- 수정하는 페이지. -->
 				   <td><%=vo.getEmail() %></td>
 				   <td><%=vo.getPasswd() %></td>
 			   </tr>

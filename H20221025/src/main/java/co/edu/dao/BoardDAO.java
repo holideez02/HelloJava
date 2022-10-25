@@ -45,7 +45,7 @@ public class BoardDAO extends DAO {
 
 	}
 
-	public BoardVO searchBoard(int boardNo) {
+	public BoardVO searchBoard(int boardNo) { //한건조회
 		getConnect();
 		String sql = "select * from tbl_board where board_no = ?";
 		BoardVO vo = null;
@@ -57,12 +57,19 @@ public class BoardDAO extends DAO {
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				vo = new BoardVO(rs.getInt("board_no")
-						, rs.getString /////
-						)
+						, rs.getString("title")
+						, rs.getString("content")
+						, rs.getString("writer")
+						, rs.getString("write_date")
+						, rs.getInt("click_cnt")
+						, rs.getString("image"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			disconnect();
 		}
+		return vo;
 	}
 
 	public List<BoardVO> boardList(BoardVO vo) { // 목록조회
