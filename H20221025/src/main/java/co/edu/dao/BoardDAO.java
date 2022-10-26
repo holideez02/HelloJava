@@ -31,6 +31,7 @@ public class BoardDAO extends DAO {
 			psmt.setString(4, vo.getWriter());
 
 			int r = psmt.executeUpdate();
+			System.out.println(r+"건 입력.");
 			if (r > 0) {
 				vo.setBoardNo(nextSeq);
 				return vo;
@@ -48,7 +49,7 @@ public class BoardDAO extends DAO {
 	public BoardVO searchBoard(int boardNo) { //한건조회
 		getConnect();
 		String sql = "select * from tbl_board where board_no = ?";
-		BoardVO vo = null;
+		BoardVO board = new BoardVO();
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -56,20 +57,21 @@ public class BoardDAO extends DAO {
 			
 			rs = psmt.executeQuery();
 			if(rs.next()) {
-				vo = new BoardVO(rs.getInt("board_no")
-						, rs.getString("title")
-						, rs.getString("content")
-						, rs.getString("writer")
-						, rs.getString("write_date")
-						, rs.getInt("click_cnt")
-						, rs.getString("image"));
+//				BoardVO board = new BoardVO();
+				board.setBoardNo(rs.getInt("board_no"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setWriter(rs.getString("writer"));
+				board.setWriteDate(rs.getString("write_date"));
+				board.setClickCnt(rs.getInt("click_cnt"));
+				board.setImage(rs.getString("image"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
-		return vo;
+		return board;
 	}
 
 	public List<BoardVO> boardList(BoardVO vo) { // 목록조회
@@ -119,6 +121,7 @@ public class BoardDAO extends DAO {
 			psmt.setInt(2, vo.getBoardNo());
 			
 			int r = psmt.executeUpdate();
+			System.out.println(r+"건 변경.");
 			if (r > 0) {
 				return true;
 			}
@@ -140,6 +143,7 @@ public class BoardDAO extends DAO {
 			psmt.setInt(1, boardNo);
 			
 			int r = psmt.executeUpdate();
+			System.out.println(r+"건 삭제.");
 			if (r > 0) {
 				return true;
 			}
