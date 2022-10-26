@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.edu.control.BulletinControl;
 import co.edu.control.MainControl;
+import co.edu.control.SearchBoard;
+import co.edu.control.WriteBoard;
+import co.edu.control.WriteForm;
 
 public class FrontController extends HttpServlet{
 
@@ -29,8 +33,11 @@ public class FrontController extends HttpServlet{
 		charset = config.getInitParameter("charset"); //위와 같다. 둘 중 아무거나 사용.
 		controlList = new HashMap<String, Control>();
 		
-		controlList.put("/main.do", new MainControl());
-		
+		controlList.put("/main.do", new MainControl()); //메인
+		controlList.put("/bulletin.do", new BulletinControl()); //목록보기	
+		controlList.put("/searchBoard.do", new SearchBoard()); //상세조회
+		controlList.put("/writeBoardForm.do", new WriteForm()); //글등록form
+		controlList.put("/writeBoard.do", new WriteBoard());//글등록
 	}
 	
 	//서블릿이 호출될 때 마다 실행되는 service()

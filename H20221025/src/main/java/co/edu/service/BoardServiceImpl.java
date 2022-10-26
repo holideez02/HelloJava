@@ -12,27 +12,32 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO insertBoard(BoardVO vo) { //입력
-		return null;
+		return dao.insertBoard(vo);
 	}
 
 	@Override
 	public List<BoardVO> getList(BoardVO vo) { //목록조회
-		return null;
+		return dao.boardList(vo);
 	}
 
 	@Override
 	public BoardVO findBoard(int boardNo) { //상세조회
-		return null;
+		return dao.searchBoard(boardNo);
 	}
 
 	@Override
 	public boolean updateBoard(BoardVO vo) { //수정
-		return false;
+		return dao.updateBoard(vo);
 	}
 
 	@Override
 	public boolean deleteBoard(int boardNo) { //삭제
-		return false;
+		return dao.deleteBoard(boardNo);
+	}
+
+	@Override
+	public List<BoardVO> pageList(int page) {
+		return dao.pageList(page);
 	}
 
 }

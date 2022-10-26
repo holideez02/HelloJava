@@ -13,7 +13,7 @@ public class BoardDAO extends DAO {
 		// 입력 처리중에 에러가 발생하면 .. null!
 		getConnect();
 		String sql = "select board_seq.nextval from dual";
-		String sql2 = "insert into tbl_board (board_no, title, content, writer)\r\n" + "values (?, ?, ?, ?)";
+		String sql2 = "insert into tbl_board (board_no, title, content, writer, image ) " + "values (?, ?, ?, ?, ?)";
 
 		try {
 			// 시퀀스 얻어오는 쿼리
@@ -29,6 +29,7 @@ public class BoardDAO extends DAO {
 			psmt.setString(2, vo.getTitle());
 			psmt.setString(3, vo.getContent());
 			psmt.setString(4, vo.getWriter());
+			psmt.setString(5, vo.getImage());
 
 			int r = psmt.executeUpdate();
 			System.out.println(r+"건 입력.");
@@ -49,7 +50,7 @@ public class BoardDAO extends DAO {
 	public BoardVO searchBoard(int boardNo) { //한건조회
 		getConnect();
 		String sql = "select * from tbl_board where board_no = ?";
-		BoardVO board = new BoardVO();
+		BoardVO board = null;
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -57,7 +58,7 @@ public class BoardDAO extends DAO {
 			
 			rs = psmt.executeQuery();
 			if(rs.next()) {
-//				BoardVO board = new BoardVO();
+				board = new BoardVO();
 				board.setBoardNo(rs.getInt("board_no"));
 				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
@@ -65,6 +66,7 @@ public class BoardDAO extends DAO {
 				board.setWriteDate(rs.getString("write_date"));
 				board.setClickCnt(rs.getInt("click_cnt"));
 				board.setImage(rs.getString("image"));
+				return board;
 				
 			}
 		} catch (SQLException e) {
@@ -72,7 +74,7 @@ public class BoardDAO extends DAO {
 		} finally {
 			disconnect();
 		}
-		return board;
+		return null;
 	}
 
 	public List<BoardVO> boardList(BoardVO vo) { // 목록조회
@@ -155,6 +157,65 @@ public class BoardDAO extends DAO {
 		}
 		return false;
 	
+	}
+	
+	//페이지. 전체 건수를 기준으로 10개씩 자름. 후에는 검색결과에서 전체건수/10씩도 나와야한다.
+	public int totalCnt() {
+		getConnect();
+		String sql = "select count(1) from tbl_board";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()) { // 값이 있으면
+				int cnt = rs.getInt(1); //가지고 온 칼럼 첫번째(count)
+				return cnt;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return 0;
+	}
+	
+	public List<BoardVO> pageList(int page){ // 페이지 수를 적으면 그만큼만 갖고옴
+		getConnect();
+		List<BoardVO> list = new ArrayList<>();
+		String sql = "select b.* "//
+				+ "from (select rownum rn, a.* "//
+				+ "      from   (select * "//
+				+ "              from tbl_board "//
+				+ "              order by board_no desc) a  "//
+				+ "      where rownum <= ?) b "//
+				+ "where b.rn >= ?";
+		
+		int from = (page - 1) * 10 + 1; //1, 11
+		int to = (page * 10); //10, 20
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, to); //rownum
+			psmt.setInt(2, from); //b.rn
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO board = new BoardVO();
+				board.setBoardNo(rs.getInt("board_no"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setWriter(rs.getString("writer"));
+				board.setWriteDate(rs.getString("write_date"));
+				board.setClickCnt(rs.getInt("click_cnt"));
+				board.setImage(rs.getString("image"));
+				
+				list.add(board);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list;
 	}
 
 }

@@ -11,4 +11,7 @@ public interface BoardService {
 	public BoardVO findBoard(int boardNo); //한건 조회
 	public boolean updateBoard(BoardVO vo); //수정
 	public boolean deleteBoard(int boardNo); //삭제
+	
+	//페이지 기능.
+	public List<BoardVO> pageList(int page);
 }

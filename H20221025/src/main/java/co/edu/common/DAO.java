@@ -19,7 +19,7 @@ public class DAO {
 		try {
 			
 			Properties prop = new Properties();
-			prop.load(new FileReader("src/main/java/co/edu/database.properties"));
+			prop.load(new FileReader("C:/Temp/database.properties"));
 			String driver = prop.getProperty("driver");
 			String url = prop.getProperty("url");
 			String id = prop.getProperty("user");
