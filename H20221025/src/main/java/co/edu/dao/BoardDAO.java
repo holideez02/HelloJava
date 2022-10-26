@@ -186,7 +186,7 @@ public class BoardDAO extends DAO {
 				+ "      from   (select * "//
 				+ "              from tbl_board "//
 				+ "              order by board_no desc) a  "//
-				+ "      where rownum <= ?) b "//
+				+ "      where rownum <= ? ) b "//
 				+ "where b.rn >= ?";
 		
 		int from = (page - 1) * 10 + 1; //1, 11

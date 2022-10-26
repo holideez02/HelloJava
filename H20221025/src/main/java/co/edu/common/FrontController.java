@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.edu.control.BulletinControl;
 import co.edu.control.MainControl;
+import co.edu.control.QnAControl;
 import co.edu.control.SearchBoard;
 import co.edu.control.WriteBoard;
 import co.edu.control.WriteForm;
@@ -38,6 +39,7 @@ public class FrontController extends HttpServlet{
 		controlList.put("/searchBoard.do", new SearchBoard()); //상세조회
 		controlList.put("/writeBoardForm.do", new WriteForm()); //글등록form
 		controlList.put("/writeBoard.do", new WriteBoard());//글등록
+		controlList.put("/qna.do", new QnAControl());//qna게시판)
 	}
 	
 	//서블릿이 호출될 때 마다 실행되는 service()
