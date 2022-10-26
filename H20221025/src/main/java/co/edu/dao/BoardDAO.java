@@ -65,6 +65,7 @@ public class BoardDAO extends DAO {
 				board.setWriteDate(rs.getString("write_date"));
 				board.setClickCnt(rs.getInt("click_cnt"));
 				board.setImage(rs.getString("image"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
