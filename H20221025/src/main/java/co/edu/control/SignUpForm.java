@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import co.edu.common.Control;
 import co.edu.common.HttpUtil;
 
-public class QnAForm implements Control {
+public class SignUpForm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpUtil.forward(req, resp, "bulletin/qna.tiles");
-
+		HttpUtil.forward(req, resp, "member/memberForm.tiles");
 	}
 
 }

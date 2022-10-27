@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.board.BoardVO;
+import co.edu.board.MemberVO;
 import co.edu.common.DAO;
 
 public class BoardDAO extends DAO {
@@ -217,5 +218,33 @@ public class BoardDAO extends DAO {
 		}
 		return list;
 	}
+	
+	//g회원목록 출력하기 for member/memberList.jsp에서 jstl 이용.
+	public List<MemberVO> memberList(){
+		List<MemberVO> list = new ArrayList<>();
+		getConnect();
+		String sql = "select * from members";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setPasswd(rs.getString("passwd"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list;
+	}
+		
 
 }

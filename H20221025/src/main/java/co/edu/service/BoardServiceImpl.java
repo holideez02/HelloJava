@@ -3,11 +3,17 @@ package co.edu.service;
 import java.util.List;
 
 import co.edu.board.BoardVO;
+import co.edu.board.MemberVO;
+import co.edu.board.faqVO;
 import co.edu.dao.BoardDAO;
+import co.edu.dao.MemberDAO;
+import co.edu.dao.faqDAO;
 
 public class BoardServiceImpl implements BoardService {
 	
 	BoardDAO dao = new BoardDAO();
+	MemberDAO mdao = new MemberDAO();
+	faqDAO fdao = new faqDAO();
 	
 
 	@Override
@@ -38,6 +44,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> pageList(int page) {
 		return dao.pageList(page);
+	}
+
+	@Override
+	public MemberVO memberInsert(MemberVO vo) { //회원가입 입력
+		return mdao.memberInsert(vo);
+	}
+
+	@Override
+	public List<MemberVO> memberList() { //회원목록조회
+		return dao.memberList();
+	}
+
+	@Override
+	public MemberVO login(String id, String passwd) {
+		return mdao.login(id, passwd);
+	}
+
+	@Override
+	public List<faqVO> boardList(faqVO vo) {
+		return fdao.boardList(vo);
 	}
 
 }
