@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> pageList(int page) {
+	public List<BoardVO> pageList(int page) { //글목록 페이징
 		return dao.pageList(page);
 	}
 
@@ -66,4 +66,8 @@ public class BoardServiceImpl implements BoardService {
 		return fdao.boardList(vo);
 	}
 
+	@Override
+	public List<faqVO> faqPageList(int page) { //faq페이징
+		return fdao.faqPageList(page);
+	}
 }

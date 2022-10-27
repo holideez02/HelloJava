@@ -13,10 +13,11 @@ public interface BoardService {
 	public BoardVO findBoard(int boardNo); //한건 조회
 	public boolean updateBoard(BoardVO vo); //수정
 	public boolean deleteBoard(int boardNo); //삭제
-	public List<faqVO> boardList(faqVO fo);
+	public List<faqVO> boardList(faqVO vo); //faq 목록
 	
 	//페이지 기능.
 	public List<BoardVO> pageList(int page);
+	public List<faqVO> faqPageList(int page); // faq 페이징
 	
 	//회원가입 기능
 	public MemberVO memberInsert(MemberVO vo); 

@@ -219,7 +219,7 @@ public class BoardDAO extends DAO {
 		return list;
 	}
 	
-	//g회원목록 출력하기 for member/memberList.jsp에서 jstl 이용.
+	//회원목록 출력하기 for member/memberList.jsp에서 jstl 이용.
 	public List<MemberVO> memberList(){
 		List<MemberVO> list = new ArrayList<>();
 		getConnect();

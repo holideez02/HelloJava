@@ -23,15 +23,15 @@ public class faqControl implements Control {
 		page = page == null ? "1": page;
 		int pg = Integer.parseInt(page);
 		
-		PageVO paging = new PageVO(515, pg);
+		PageVO paging = new PageVO(2, pg);
 		
 		BoardService service = new BoardServiceImpl();
 		
-		List<faqVO> list = service.boardList(pg);////////
-		req.setAttribute("bList", list);
+		List<faqVO> list = service.faqPageList(pg);////////
+		req.setAttribute("fList", list);
 		req.setAttribute("page", paging);
 		
-		HttpUtil.forward(req, resp, "bulletin/bulletin.tiles");
+		HttpUtil.forward(req, resp, "bulletin/FAQBulletin.tiles");
 	}
 
 }

@@ -13,7 +13,7 @@
 		PW: <input type="password" name="pswd"><br>
 		이름: <input type="text" name="name"><br>
 		이메일: <input type="email" name="mail"><br>
-		권한: <input type="text" name="responsibility" value="user"><br>
+		권한: <input type="text" name="responsibility" value="user" readonly><br>
 		<input type="submit" value="회원가입"><br>
 		<input type="reset" value="초기화"><br>
 	</form>
