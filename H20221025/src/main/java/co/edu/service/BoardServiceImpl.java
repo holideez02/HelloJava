@@ -70,4 +70,21 @@ public class BoardServiceImpl implements BoardService {
 	public List<faqVO> faqPageList(int page) { //faq페이징
 		return fdao.faqPageList(page);
 	}
+
+	@Override
+	public MemberVO getPassWd(String id) {
+		return mdao.getPassWd(id);
+	}
+
+	@Override
+	public String sendMail(String from, String to, String subject, String content) {
+		return mdao.sendMail(from, to, subject, content);
+	}
+
+	@Override
+	public MemberVO update(MemberVO mvo) {
+		return mdao.update(mvo);
+	}
+	
+	
 }

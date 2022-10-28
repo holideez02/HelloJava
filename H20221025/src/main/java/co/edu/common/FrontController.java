@@ -17,6 +17,8 @@ import co.edu.control.SignOut;
 import co.edu.control.MainControl;
 import co.edu.control.MemberList;
 import co.edu.control.faqControl;
+import co.edu.control.passwdReConfirm;
+import co.edu.control.passwdReConfirmForm;
 import co.edu.control.SearchBoard;
 import co.edu.control.SignUp;
 import co.edu.control.SignUpForm;
@@ -33,7 +35,7 @@ public class FrontController extends HttpServlet{
 //	public void init() throws ServletException {
 //		ServletContext sc = this.getServletContext(); //이 메소드로 servletContext를 가지고 옴
 //		sc.getInitParameter("charset"); //이 값으로 셋팅되어져 있는 키 값(UTF-8) 읽어옴.
-//	}
+//	} 
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -56,6 +58,10 @@ public class FrontController extends HttpServlet{
 		controlList.put("/signInForm.do", new SignInForm()); //로그인 화면
 		controlList.put("/signIn.do", new SignIn()); //로그인처리
 		controlList.put("/signOut.do", new SignOut()); //로그아웃
+		
+		//비밀번호 찾기
+		controlList.put("/passwdReConfirmForm.do", new passwdReConfirmForm());
+		controlList.put("/passwdReConfirm.do", new passwdReConfirm());
 	}
 	
 	//서블릿이 호출될 때 마다 실행되는 service()
