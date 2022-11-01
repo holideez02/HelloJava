@@ -61,7 +61,7 @@ public class MemberListServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		memberDAO dao = new memberDAO();
 		// job이 등록인지 삭제인지 구분!
-		if (job.equals("delete")) {
+		if (job.equals("delete")) { //삭제일때
 			if (dao.deleteMember(id)) {
 				response.getWriter().print("success"); // 정상적으로 처리되면!
 			} else {

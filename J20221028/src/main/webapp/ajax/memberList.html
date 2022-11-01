@@ -106,7 +106,7 @@
 		function deleteFunc(){
 			//tr_user1111 이런값으로 가져오게끔 했었다. 
 			let oid = this. parentElement.parentElement.getAttribute('id');
-			let id = oid.substring('tr_'.length); //tr_
+			let id = oid.substring('tr_'.length); //tr_지우고 남은 값들만 id에 저장
 			//1. 서블릿 호출해서 db에서 삭제도 해주고
 			let delAjax = new XMLHttpRequest();
 			delAjax.open('post', '../MemberListServlet'); //한단계 상위에 있는 곳으로!

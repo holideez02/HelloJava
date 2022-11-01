@@ -10,7 +10,7 @@
 
 	<div id="show">
 		시도: <input type="text" id="sido">
-		<input type="submit" value="찾기"><br> 
+		<input type="submit" id="Btn" value="찾기"><br> 
 		<table border="1">
 			<thead>
 				<tr><th>센터id</th><th>센터명</th><th>연락처</th></tr>
@@ -21,6 +21,7 @@
 	</div>
 	
 	<script>
+		document.querySelector('#Btn').addEventListener('click', searchData);
 		let url =
 			'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=JSON&serviceKey=A2Q3Qa6jsRDId6bk6WoIyUY8ZLmM6QmcpgwPOkNnPgyxzbXJVnBVUtonQp5Fdr7DdXuT2J62GXyiQxy8twDfiA%3D%3D';
 		fetch(url)
@@ -28,9 +29,14 @@
 			.then(showList)
 			.catch(error => console.log(error));
 
+		let all; // 전역변수로 선언
+		
 		function showList(result) {
 			console.log(result); //id, totalCount, data, perPage, page, current,matchCount.. 다양한 속성이 있다. 
 		  //result.data.forEach(center => console.log(center.centerName));
+			all = result.data;
+			
+			//데이터 값이 있을때까지 반복해서 출력
 			let tbody = document.querySelector('#list');
 			result.data.forEach(row => {
 				tbody.append(makeTr(row));
@@ -41,7 +47,7 @@
 		function makeTr(center){
 			let fields = ['id', 'centerName', 'phoneNumber']; //td를만들때 쓰려고!
 			let tr = document.createElement('tr');
-			for(let field of fields){ // 배열을 돌때 of, 객체를 돌때는 in ~~~~
+			for(let field of fields){ // 배열을 돌때 of, 객체를 돌때는 in .
 				let td = document.createElement('td');
 				let idTxt = document.createTextNode(center[field]);
 				td.append(idTxt);
@@ -49,11 +55,16 @@
 			}
 			return tr;
 		}
-		//찾기버튼.
-		let sido = document.getElementById('sido');
-		let search = document.getElementById('sido').value;
-		if(search){
-			
+		// 검색
+		function searchData(){
+			console.log(all);
+			let sido = document.getElementById('sido').value;
+			document.querySelectorAll('#list>tr').forEach(tr=>tr.remove()); //모든 리스트 삭제
+			all.forEach(center => {
+				if(sido == center.sido){
+					document.querySelector('#list').append(makeTr(center));
+				}
+			})
 		}
 	</script>
 </body>
