@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memberAdd.html</title>
+</head>
+<body>
+	<h3>회원등록페이지.</h3>
+	<form name="submitFrm" action="" method="post">
+	 id: <input type="text" id="id"><br>
+	 pass: <input type="text" id="passwd"><br>
+	 email: <input type="email" id="email"><br>
+	 name: <input type="text" id="name"><br>
+	 <input type="submit" value="등록">
+	</form>
+	<form name="secondFrm"></form>
+	<script>
+		document.forms.submitFrm.action ="../index.html"; //form의 경로를 여기서 지정하는 것. 위에서 해도 되는데 그냥 하나의 방법
+		//submitFrm.method = 'get'; //get방식이 아닌 post로 바꾸기로 했다.
+		document.forms.submitFrm.onsubmit = function(e){
+			e.preventDefault(); //이페이지에 머물러있겠습니다~ e는 이벤트. 이벤트가 가지고 있는 기본기능 차단. 
+			
+			let id = document.getElementById('id').value;
+			let pw = document.getElementById('passwd').value;
+			let em = document.getElementById('email').value;
+			let nm = document.getElementById('name').value;
+			let check = id && pw && em && nm; //변수에 값이 있으면 boolean타입으로 true.
+			if(!check){
+				alert('필수항목입니다.')
+				return false;
+			}
+			let data = 'id='+id+'&passwd='+pw+'&email='+em+'&name='+nm; //키, value로 구분
+			let ajax = new XMLHttpRequest();
+			ajax.open('post', '../MemberListServlet');
+			ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //json으로 넘어오면 aplication/json으로. 여기서는 키와 value형식으로 넘기니까 안처럼 쓰는것
+			ajax.send(data);
+			ajax.onload = function(){
+				console.log(ajax.responseText);
+				let data = JSON.parse(ajax.responseText);
+				let pTag = document.createElement('p');
+				pTag.textContent = '아이디: ' + data.id + ' 이름: ' + data.name;
+			
+				secondFrm.after(pTag); //하위(자식)가 아닌 동생 위치.(그 다음)에 생성됨
+			}
+		}
+	</script>
+</body>
+</html>
