@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    let aryData = []; //첫번째 데이터는 ['부서명', '부서인원(명)']과 같은 정보가 들어가고 그 다음[Account, 3]처럼 데이터가 들어가야 한다.
+
+    fetch('./EmpByDeptServlet')
+      .then(result => result.json()) //결과값 json 형태로 바당옴
+      .then(loadCallBack)
+      .catch(err => console.error(err));
+
+    function loadCallBack(result={}) {
+      console.log(result);
+      aryData.push(['부서명', '부서인원']);
+
+      for(let dept in result){
+        aryData.push([dept, result[dept]]); 
+      }
+
+
+      google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(aryData);
+        var options = {
+          title: '부서별 인원현황'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="piechart" style="width: 900px; height: 500px;"></div>
+</body>
+
+</html>

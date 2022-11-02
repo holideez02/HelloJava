@@ -17,4 +17,9 @@ public class MemberVO {
 	private String name;
 	private String email;
 	private String responsibility;
+	
+	//캘린더 
+	private String title;
+	private String startDate;
+	private String endDate;
 }
