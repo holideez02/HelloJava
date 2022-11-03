@@ -34,8 +34,8 @@
             let dates = ['일', '월', '화', '수', '목', '금', '토'];
             dates.forEach(p => {
                 let td = document.createElement('td');
-                td.append(p);
-                tr.append(td);
+                td.append(p); //<td>일</td>
+                tr.append(td);//<tr><td>일</td></tr>
             })
             tr = document.createElement('tr');
             tbody.append(tr);

@@ -64,9 +64,9 @@
 			return false; //preventDefault();
 		}
 
-		function addCallback(result){
+		function addCallback(result){ //가장 먼저 실행되는 함수
 			console.log(result);
-			document.querySelector('#list').append(makeTr(result));
+			document.querySelector('#list').append(makeTr(result)); //tbody의 list
 
 			//화면 입력 초기화.
 			document.getElementById('id').value='';

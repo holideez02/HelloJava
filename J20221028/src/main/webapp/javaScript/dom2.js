@@ -42,13 +42,13 @@ function domLoadedFunc() {
 	let thead = document.createElement('thead');
 	let tr = document.createElement('tr');
 	let titles = ['아이디', '이름', '이메일', '성별', '급여', '삭제'];
-	for (let title of titles) {
-		let idTag = document.createElement('th');
-		let idTxt = document.createTextNode(title); //
-		idTag.appendChild(idTxt);
-		tr.appendChild(idTag);
+	for (let title of titles)  { //타이틀 작업
+		let thTag = document.createElement('th');
+		let txt = document.createTextNode(title); //
+		thTag.appendChild(txt);
+		tr.appendChild(thTag);
 	}
-	let idTag = document.createElement('th');
+	let thTag = document.createElement('th');
 	let checkbox = document.createElement('input')
 	checkbox.setAttribute('type', 'checkbox');
 	checkbox.addEventListener('change', function() {
@@ -57,8 +57,8 @@ function domLoadedFunc() {
 			check.checked = checkbox.checked; //cks는 부하들. checkbox는 대장님. 대장이 체크하면 부하들도 체크해
 		});
 	});
-	idTag.appendChild(checkbox);
-	tr.appendChild(idTag);
+	thTag.appendChild(checkbox);
+	tr.appendChild(thTag);
 	thead.appendChild(tr);
 
 	table.appendChild(thead);
@@ -82,7 +82,7 @@ function domLoadedFunc() {
 	//선택 삭제 버튼에 이벤트 등록.
 	document.querySelectorAll('button[type=button]')[2].addEventListener('click', deleteCheckedFunc);
 	///////////////////////////function/////////////////////////////////
-	function addFunc() {
+	function addFunc() { //추가 함수
 		let id = document.getElementById('id').value;
 		let fn = document.getElementById('fname').value;
 		let em = document.getElementById('email').value;
@@ -105,7 +105,7 @@ function domLoadedFunc() {
 		document.querySelector('#show>table>tbody').appendChild(makeTr(newRow));
 	} //end of addFunc()
 
-	function updateFunc() {
+	function updateFunc() { //수정 함수
 		let trs = document.querySelectorAll('#show>table>tbody>tr'); //이 경로의 모든 tr가져옴
 		let id = document.getElementById('id').value;
 		console.log(id, trs[0].children[0].textContent) // 밑에 if문 쓰기전에 값 맞는지 확인해보고..
@@ -120,7 +120,7 @@ function domLoadedFunc() {
 		}
 	} //end of updateFunc()
 
-	function deleteCheckedFunc() {
+	function deleteCheckedFunc() { //선택 삭제 함수
 		let trs = document.querySelectorAll('#show>table>tbody>tr');
 		for (let i = 0; i < trs.length; i++) {
 			if (trs[i].children[6].firstElementChild.checked) {
@@ -152,7 +152,7 @@ function domLoadedFunc() {
 			this.style.backgroundColor = null;
 		})
 
-		for (let field of fields) {
+		for (let field of fields) { //필드 하나씩 추가
 			// 보여지는 항목만큼 반복.
 			let td = document.createElement('td');
 			let txt = document.createTextNode(row[field]); //obj의 field는 각각의 요소들을 가지고 옴

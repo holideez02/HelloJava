@@ -37,7 +37,7 @@
 		});
 		
 		document.getElementById('btn').addEventListener('click', removeFnc); //입력 버튼 누르면 삭제
-		document.querySelector('#word').addEventListener('keyup', (e) => {
+		document.querySelector('#word').addEventListener('keyup', (e) => { //엔터
 			if(e.keyCode === 13){
 				removeFnc()
 			}

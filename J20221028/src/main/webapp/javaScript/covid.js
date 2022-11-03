@@ -28,7 +28,7 @@ function showList(result) {
 
     //body(데이터) 영역 생성.
     console.log(result);
-    data = result.data;
+    data = result.data; //받아온 데이터 data에 저장
 
     //option 태그 생성.
     makeOption(data); //data의 값을 넘겨줌
@@ -99,7 +99,7 @@ function makeTr(row = {}) { //값이 하나 넘어오면 실행. row ={}
     return tr;
 }
 
-function openInfoWindow(e){
+function openInfoWindow(e){ //지도로 보내주기
     console.log(e.target.parentElement) //이벤트를 받는 속성. tr lng, lat
     let lng = e.target.parentElement.getAttribute('lng');
     let lat = e.target.parentElement.getAttribute('lat');
