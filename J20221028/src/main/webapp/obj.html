@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style>
+		div {
+			display: inline-block;
+			width: 550px;
+			background-color: green;
+		}
+
+		p {
+			display: inline-block;
+			width: 110px;
+			background-color: skyblue;
+			padding: 5px;
+			margin: 4px;
+		}
+	</style>
+</head>
+
+<body>
+	단어입력: <input type="text" id="word"><button id="btn">입력</button><br>
+	<div id="wordlist">
+	</div>
+	<div id="timer"></div>
+	<script>
+		let words =
+			`Lorem ipsum dolor sit amet consectetur`;
+		let wordAry = words.split(' ') //어떤 문자열을 잘라서 배열을 만들어줌. 여기서는 공백으로! 
+		wordAry.forEach(word => {
+			let pTag = document.createElement('p');
+			pTag.textContent = word;
+			document.getElementById('wordlist').append(pTag);
+		});
+		
+		document.getElementById('btn').addEventListener('click', removeFnc); //입력 버튼 누르면 삭제
+		document.querySelector('#word').addEventListener('keyup', (e) => {
+			if(e.keyCode === 13){
+				removeFnc()
+			}
+		})
+		//단어 입력시 삭제.
+		function removeFnc() {
+			let word = document.getElementById('word').value;
+			let allPtag = document.querySelectorAll('#wordlist>p');
+			// for(let i=0; i<allPtag.length; i++){
+			// 	if(allPtag[i].textContent==word){
+			// 		allPtag[i].remove();
+			// 	}
+			// }
+			// for(let wd of allPtag){
+			// 	if(wd.textContent==word){
+			// 		wd.remove();
+			// 	}
+			// }
+			allPtag.forEach(p => {
+				if (word == p.textContent) {
+					p.remove();
+				}
+			})
+			document.getElementById('word').value = ''; //삭제하고 입력창 비워주기.
+		}
+
+		//타이머
+		Date.prototype.timeFormater = function () {
+			return ("0" + this.getHours()).slice(-2) + ":" + //slice(0,3)도 가능! 오전 10시면 010 -> -2로 자르니까 10만 가지고오게.
+				("0" + this.getMinutes()).slice(-2) + ":" +
+				("0" + this.getSeconds()).slice(-2);
+		}
+		// String.prototype.ltrim = function(){}
+		let time = 50;
+		//setTimeout(function() {}, 5000) //이건 5초뒤에 한번만! 실행.
+		let timer1 = setInterval(() => { //setInterval은 뭔가를 반복하고 싶을때 사용. 매개값은 두개. 하나는 실행할 함수, 뒤는 얼마 뒤에 또 반복하겠습니다. clearInterval을 부르기 전까지는 계속 반복함!
+			//100초 => 
+			console.log(time);
+			let timer = new Date();
+			document.getElementById('timer').textContent = time+'초';
+			
+			// 교수님 방법
+			// let items = document.querySelectorAll('#wordlist>p');
+			//time--;
+			// if(!items.length && time){
+			// 	alert('success')
+			// 	clearInterval(timer1);
+			// } else if(!time){
+			// 	alert('fail');
+			// 	clearInterval(timer1);
+			// }
+
+			if (time-- <= 0){
+				clearInterval(timer1); //setInterval을 종료하는 clearInterval(변수);
+				alert('시간 종료!');
+			} else if(document.querySelector('#wordlist>p') == null){
+				alert('성공!')
+				clearInterval(timer1);
+			}
+		}, 1000);
+		
+	</script>
+</body>
+
+</html>
