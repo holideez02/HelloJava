@@ -76,7 +76,6 @@ function domLoadedFunc() {
             //삭제버튼
             let btn = document.createElement('button');
             btn.addEventListener('click', delFunc);
-            //this.parentElement.parentElement.remove();
             td = document.createElement('td')
             let txt = document.createTextNode('삭제');
             btn.setAttribute('id', 'delete');
@@ -143,7 +142,7 @@ function domLoadedFunc() {
             delAjax.onload = function () {
                 let result = delAjax.responseText;
                 if (result == 'success') {
-                    this.parentElement.parentElement.remove();
+                    document.getElementById(bookid).remove();
                 } else if (result == 'fail') {
                     alert('실패!');
                 }
@@ -167,8 +166,8 @@ function domLoadedFunc() {
                     delAjax.onload = function () {
                         let result = delAjax.responseText;
                         if (result == 'success') {
-                            trs[i].remove();
                             alert('삭제 완료')
+                            trs[i].remove();
                         } else if (result == 'fail') {
                             alert('실패');
                         }
