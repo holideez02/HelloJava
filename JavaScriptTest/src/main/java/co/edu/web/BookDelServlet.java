@@ -27,12 +27,7 @@ public class BookDelServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/json;charset=utf-8");
-		BookDAO dao = new BookDAO();
-		List<BookVO> list = dao.bookList();
 		
-		Gson gson = new GsonBuilder().create();
-		response.getWriter().print(gson.toJson(list));
 	}
 
 
@@ -43,6 +38,13 @@ public class BookDelServlet extends HttpServlet {
 		
 		BookDAO dao = new BookDAO();
 		String bookCode = request.getParameter("bookCode");
+		
+		if (dao.deleteBook(bookCode)) {
+			response.getWriter().print("success");
+		} else {
+			response.getWriter().print("fail");
+		}
+		
 		dao.deleteBook(bookCode);
 	}
 

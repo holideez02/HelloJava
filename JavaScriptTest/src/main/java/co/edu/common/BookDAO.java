@@ -58,7 +58,7 @@ public class BookDAO extends DAO{
 	
 	public boolean deleteBook(String bookCode) {
 		getConnect();
-		String sql = "delefe from tbl_book where book_code=? ";
+		String sql = "delete from tbl_book where book_code=? ";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, bookCode);

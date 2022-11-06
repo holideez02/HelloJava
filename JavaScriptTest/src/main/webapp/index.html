@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="bookList.js"></script>
+
+<script src="bookList.js?v=4"></script>
 </head>
 <body>
-	<h3>도서목록 페이지</h3>
-	<form action="">
-		도서코드 <input type="text" id="bookCode"><br>
-		도서명 <input type="text" id="bookName"> 
-		<button type="button">저장</button><br>
-		저자 <input type="text" id="author"> 
-		<button type="button" id="checkDel">선택삭제</button><br>
-		출판사 <input type="text" id="press"><br>
-		금액 <input type="text" id="price"><br>
-		
-		<table id="tbl" >
-            <thead id="title"></thead>
-            <tbody id="list"></tbody>
-        </table>
-	</form>
-	<div id="show"> 
+	<div id="show">
+		<h3>도서목록 페이지</h3>
+		<form action="">
+			도서코드 <input type="text" id="bookCode"><br> 도서명 <input
+				type="text" id="bookName">
+			<button type="button">저장</button>
+			<br> 저자 <input type="text" id="author">
+			<button type="button" id="checkDel">선택삭제</button>
+			<br> 출판사 <input type="text" id="press"><br> 금액 <input
+				type="text" id="price"><br> <br>
+			<table id="tbl" border="1">
+				<thead id="title"></thead>
+				<tbody id="list"></tbody>
+			</table>
+		</form>
 	</div>
 </body>
 </html>
