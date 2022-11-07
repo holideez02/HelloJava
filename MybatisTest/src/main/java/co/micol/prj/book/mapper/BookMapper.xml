@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.micol.prj.book.mapper.BookMapper">
+	<select id="bookSelectList" resultType="co.micol.prj.book.vo.BookVO"> <!-- select는 돌려줄 타입을 지정해주기 -->
+		SELECT * FROM BOOK_INFO ORDER BY BOOK_CODE DESC
+	</select>
+	
+	<select id="bookSelect" resultType="co.micol.prj.book.vo.BookVO">
+		SELECT * FROM BOOK_INFO 
+		WHERE BOOK_CODE = #{bookCode}
+	</select>
+	
+	<insert id="bookInsert" parameterType="co.micol.prj.book.vo.BookVO"> <!-- 파라메터타입은 받는값 -->
+		INSERT INTO BOOK_INFO
+		VALUES (book_seq.nextval,#{bookTitle},#{bookAuthor},#{bookPress},#{bookPrice})
+	</insert>
+	
+	<delete id="bookDelete" parameterType="co.micol.prj.book.vo.BookVO">
+		DELETE FROM BOOK_INFO WHERE BOOK_CODE = #{BOOKCODE}
+	</delete>
+	
+	<update id="bookUpdate" parameterType="co.micol.prj.book.vo.BookVO">
+		UPDATE BOOK_INFO 
+		SET BOOK_TITLE = #{bookTitle},
+			BOOK_AUTHOR = #{bookAuthor},
+			BOOK_PRESS = #{bookPress},
+			BOOK_PRICE = #{bookPrice} 
+		WHERE BOOK_CODE = #{bookCode}
+	</update>
+</mapper>
